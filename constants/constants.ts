@@ -4,6 +4,7 @@ export enum NAV_LINKS {
   ABOUT = "/about",
   CONTACTS = "/contacts",
   LOGIN = "/login",
+  PRODUCTS = "/products",
 }
 
 export enum CATALOGUE_FILTERS {
@@ -37,3 +38,47 @@ export const slides = [
     bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
   },
 ];
+
+export enum PRODUCT_LIST_TITLES {
+  FEATURED = "Featured Products",
+}
+
+export const products = {
+  items: [
+    {
+      _id: 0,
+      image:
+        "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
+      name: "Product 1",
+      price: 19.99,
+      slug: "product-1",
+    },
+    {
+      _id: 1,
+      image:
+        "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
+      name: "Product 2",
+      price: 29.99,
+      slug: "product-2",
+    },
+    {
+      _id: 2,
+      image:
+        "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
+      name: "Product 3",
+      price: 9.99,
+      slug: "product-3",
+    },
+    {
+      _id: 3,
+      image:
+        "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
+      name: "Product 4",
+      price: 39.99,
+      slug: "product-4",
+    },
+  ],
+  currentPage: 0,
+  hasPrev: () => false,
+  hasNext: () => false,
+};
