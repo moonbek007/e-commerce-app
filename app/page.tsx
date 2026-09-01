@@ -8,6 +8,7 @@ export default function Home() {
     <main>
       <Slider />
       <ProductList title={PRODUCT_LIST_TITLES.FEATURED} />
+      <ProductList title={PRODUCT_LIST_TITLES.NEW} />
     </main>
   );
 }

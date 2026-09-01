@@ -41,6 +41,7 @@ export const slides = [
 
 export enum PRODUCT_LIST_TITLES {
   FEATURED = "Featured Products",
+  NEW = "New Products",
 }
 
 export const products = {
