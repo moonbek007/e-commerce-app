@@ -3,6 +3,7 @@ export enum NAV_LINKS {
   CATALOGUE = "/catalogue",
   ABOUT = "/about",
   CONTACTS = "/contacts",
+  LOGIN = "/login",
 }
 
 export enum CATALOGUE_FILTERS {

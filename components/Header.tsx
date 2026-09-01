@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import SearchBar from "@/components/SearchBar";
+import NavIcons from "./NavIcons";
 
 import { NAV_LINKS } from "@/constants/constants";
 
@@ -21,6 +22,7 @@ const Header = () => {
         </div>
         <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
           <SearchBar />
+          <NavIcons />
         </div>
       </div>
     </header>
