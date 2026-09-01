@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import SearchBar from "@/components/SearchBar";
+
 import { NAV_LINKS } from "@/constants/constants";
 
 const Header = () => {
@@ -16,6 +18,9 @@ const Header = () => {
             <Link href={NAV_LINKS.ABOUT}>About</Link>
             <Link href={NAV_LINKS.CONTACTS}>Contacts</Link>
           </div>
+        </div>
+        <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
+          <SearchBar />
         </div>
       </div>
     </header>

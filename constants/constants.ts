@@ -4,3 +4,11 @@ export enum NAV_LINKS {
   ABOUT = "/about",
   CONTACTS = "/contacts",
 }
+
+export enum CATALOGUE_FILTERS {
+  SEARCH = "search",
+}
+
+export enum FORM_FIELDS {
+  PRODUCT_NAME = "product-name",
+}
