@@ -9,6 +9,7 @@ export enum NAV_LINKS {
 
 export enum CATALOGUE_FILTERS {
   SEARCH = "search",
+  CATEGORY = "category",
 }
 
 export enum FORM_FIELDS {
@@ -27,7 +28,7 @@ export const slides = [
     id: 2,
     title: "Winter Sale Collections",
     description: "Up to 70% off!",
-    img: "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg",
+    img: "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
     bg: "bg-gradient-to-r from-pink-50 to-blue-50",
   },
   {
@@ -83,3 +84,69 @@ export const products = {
   hasPrev: () => false,
   hasNext: () => false,
 };
+
+export const categories: Category[] = [
+  {
+    _id: 0,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 1",
+    slug: "category-1",
+  },
+  {
+    _id: 1,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 2",
+    slug: "category-2",
+  },
+  {
+    _id: 2,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 3",
+    slug: "category-3",
+  },
+  {
+    _id: 3,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 4",
+    slug: "category-4",
+  },
+  {
+    _id: 4,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 5",
+    slug: "category-5",
+  },
+  {
+    _id: 5,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 6",
+    slug: "category-6",
+  },
+  {
+    _id: 6,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 7",
+    slug: "category-7",
+  },
+  {
+    _id: 7,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 8",
+    slug: "category-8",
+  },
+  {
+    _id: 8,
+    image:
+      "https://images.pexels.com/photos/3262937/pexels-photo-3262937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    name: "Category 9",
+    slug: "category-9",
+  },
+];

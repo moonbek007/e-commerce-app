@@ -9,3 +9,10 @@ declare type Product = {
 declare type ProductListProps = {
   title: string;
 };
+
+declare type Category = {
+  _id: number;
+  image: string;
+  name: string;
+  slug: string;
+};
