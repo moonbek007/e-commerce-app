@@ -150,3 +150,64 @@ export const categories: Category[] = [
     slug: "category-9",
   },
 ];
+
+export enum PRODUCT_VARIANT_OPTIONS {
+  COLOR = "Color",
+  SIZE = "Size",
+}
+
+export enum PRODUCT_COLOR_OPTIONS {
+  RED = "Red",
+  BLUE = "Blue",
+  GREEN = "Green",
+}
+
+export enum PRODUCT_SIZE_OPTIONS {
+  S = "S",
+  M = "M",
+  L = "L",
+  XL = "XL",
+  XXL = "2XL",
+}
+
+export const defaultCutomizationSelectedOptions = {
+  [PRODUCT_VARIANT_OPTIONS.COLOR]: "",
+  [PRODUCT_VARIANT_OPTIONS.SIZE]: "",
+};
+
+export const productOptions = {
+  [PRODUCT_VARIANT_OPTIONS.COLOR]: {
+    name: "Color",
+    options: [
+      {
+        name: PRODUCT_COLOR_OPTIONS.RED,
+      },
+      {
+        name: PRODUCT_COLOR_OPTIONS.BLUE,
+      },
+      {
+        name: PRODUCT_COLOR_OPTIONS.GREEN,
+      },
+    ],
+  },
+  [PRODUCT_VARIANT_OPTIONS.SIZE]: {
+    name: "Size",
+    options: [
+      {
+        name: PRODUCT_SIZE_OPTIONS.S,
+      },
+      {
+        name: PRODUCT_SIZE_OPTIONS.M,
+      },
+      {
+        name: PRODUCT_SIZE_OPTIONS.L,
+      },
+      {
+        name: PRODUCT_SIZE_OPTIONS.XL,
+      },
+      {
+        name: PRODUCT_SIZE_OPTIONS.XXL,
+      },
+    ],
+  },
+};
