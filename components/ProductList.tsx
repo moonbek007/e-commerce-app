@@ -6,7 +6,7 @@ import Link from "next/link";
 import { NAV_LINKS, products } from "@/constants/constants";
 
 const ProductList = ({ title }: ProductListProps) => {
-  function handleAddToCart(product: Product) {
+  function handleAddToCart(product: ProductThumbnail) {
     console.log(`Adding product ${product.name} to cart`);
   }
 

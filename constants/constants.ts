@@ -211,3 +211,61 @@ export const productOptions = {
     ],
   },
 };
+
+export const defaultProduct = {
+  _id: "1",
+  name: "Product 1",
+  slug: "product-1",
+  description: `Elevate your everyday style with this stylish and comfortable product. Crafted from quality fabric, it offers a soft feel, comfortable fit, and an effortlessly elegant look.
+
+Designed for versatility, this shirt is perfect for casual outings, work, gatherings, or everyday wear. Its design adds a modern touch, while the carefully designed style ensures both comfort and a flattering appearance.`,
+  rating: 5.0,
+  price: {
+    price: 10.99,
+    discountedPrice: 9.99,
+  },
+  additionalInfo: [
+    {
+      title: "Product Information",
+      text: "Discover a high-quality product designed to deliver reliable performance, comfort, and value. Please review the product specifications, size, materials, and images before placing your order to ensure it meets your needs.",
+    },
+    {
+      title: "Return & Refund Policy",
+      text: "We want you to be completely satisfied with your purchase. If you receive a damaged, defective, or incorrect item, please contact us within the specified return period. Eligible items can be returned according to our return conditions, and approved refunds will be processed to your original payment method.",
+    },
+    {
+      title: "Shipping Information",
+      text: "We carefully pack and ship every order to ensure it reaches you safely. Orders are typically processed within the stated processing time, with delivery times varying by location and shipping method. You will receive tracking information once your order has been dispatched.",
+    },
+  ],
+  variants: {
+    colors: [],
+    sizes: [],
+  },
+  productOptions: [],
+  images: [
+    {
+      id: 1,
+      url: "https://images.pexels.com/photos/19036832/pexels-photo-19036832/free-photo-of-mountain-reflection-in-lake.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
+    },
+    {
+      id: 2,
+      url: "https://images.pexels.com/photos/17867705/pexels-photo-17867705/free-photo-of-crowd-of-hikers-on-the-mountain-ridge-at-dusk.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
+    },
+    {
+      id: 3,
+      url: "https://images.pexels.com/photos/21812160/pexels-photo-21812160/free-photo-of-puerta-colonial-color-rojo-de-guanajuato-mexico.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
+    },
+    {
+      id: 4,
+      url: "https://images.pexels.com/photos/20832069/pexels-photo-20832069/free-photo-of-a-narrow-street-with-buildings-and-cars.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
+    },
+  ],
+  reviews: [
+    {
+      customerName: "John Smith",
+      rating: 5,
+      text: "The product is amazing! The quality exceeded all my expectations and the design looks so good.",
+    },
+  ],
+};

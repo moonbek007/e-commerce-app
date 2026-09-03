@@ -1,4 +1,4 @@
-declare type Product = {
+declare type ProductThumbnail = {
   _id: number;
   image: string;
   name: string;
@@ -25,4 +25,28 @@ declare type ProductReview = {
 
 declare type ProductReviewsProps = {
   reviews: ProductReview[];
+};
+
+declare type Product = {
+  _id: string;
+  name: string;
+  slug: string;
+  description: string;
+  rating: number | null;
+  price: {
+    price: number;
+    discountedPrice: number;
+  };
+  additionalInfo: {
+    title: string;
+    text: string;
+  }[];
+  variants?: Record<string, string[]>;
+  productOptions?: string[];
+  images: { id: number; url: string }[];
+  reviews: ProductReview[];
+};
+
+declare type ProductInfoProps = {
+  product: Product;
 };
