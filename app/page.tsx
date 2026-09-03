@@ -1,7 +1,16 @@
+import Slider from "@/components/Slider";
+import ProductList from "@/components/ProductList";
+import CategoryList from "@/components/CategoryList";
+
+import { PRODUCT_LIST_TITLES } from "@/constants/constants";
+
 export default function Home() {
   return (
-    <main className="flex flex-1 w-full items-center justify-center py-32 px-16 bg-white dark:bg-black sm:items-start">
-      E-commerce App
+    <main>
+      <Slider />
+      <ProductList title={PRODUCT_LIST_TITLES.NEW} />
+      <CategoryList />
+      <ProductList title={PRODUCT_LIST_TITLES.FEATURED} />
     </main>
   );
 }
