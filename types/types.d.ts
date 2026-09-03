@@ -50,3 +50,7 @@ declare type Product = {
 declare type ProductInfoProps = {
   product: Product;
 };
+
+declare type ProductPageProps = {
+  params: Promise<{ slug: string }>;
+};
