@@ -16,3 +16,13 @@ declare type Category = {
   name: string;
   slug: string;
 };
+
+declare type ProductReview = {
+  customerName: string;
+  rating: number;
+  text: string;
+};
+
+declare type ProductReviewsProps = {
+  reviews: ProductReview[];
+};
