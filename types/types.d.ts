@@ -54,3 +54,7 @@ declare type ProductInfoProps = {
 declare type ProductPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+declare type CataloguePageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
