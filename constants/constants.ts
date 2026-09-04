@@ -269,3 +269,71 @@ Designed for versatility, this shirt is perfect for casual outings, work, gather
     },
   ],
 };
+
+export enum FILTER_NAMES {
+  CATEGORY = "category",
+  SORT = "sort",
+  MIN_PRICE = "min_price",
+  MAX_PRICE = "max_price",
+}
+
+export enum CATEGORIES {
+  DEFAULT = "Category",
+  POPULAR = "Popular",
+  FEATURED = "Featured",
+  FOR_MEN = "For Men",
+  FOR_WOMEN = "For Women",
+  FOR_KIDS = "For Kids",
+}
+
+export const CATEGORY_DROPDOWN_VALUES: CATEGORIES[] = [
+  CATEGORIES.DEFAULT,
+  CATEGORIES.POPULAR,
+  CATEGORIES.FEATURED,
+  CATEGORIES.FOR_MEN,
+  CATEGORIES.FOR_WOMEN,
+  CATEGORIES.FOR_KIDS,
+];
+
+export enum SORTING_OPTIONS {
+  DEFAULT = "Sort By",
+  NEWEST = "Newest",
+  PRICE_ASCENDING = "Price (lowest to highest)",
+  PRICE_DESCENDING = "Price (highest to lowest)",
+}
+
+export enum SORTING_SEARCH_PARAM_VALUES {
+  DEFAULT = "sort by",
+  NEWEST = "date,desc",
+  PRICE_ASCENDING = "price,asc",
+  PRiCE_DESCENDING = "price,desc",
+}
+
+export const SORTING_DROPDOWN_VALUES: {
+  value: SORTING_OPTIONS;
+  searchParamValue: SORTING_SEARCH_PARAM_VALUES;
+}[] = [
+  {
+    value: SORTING_OPTIONS.DEFAULT,
+    searchParamValue: SORTING_SEARCH_PARAM_VALUES.DEFAULT,
+  },
+  {
+    value: SORTING_OPTIONS.NEWEST,
+    searchParamValue: SORTING_SEARCH_PARAM_VALUES.NEWEST,
+  },
+  {
+    value: SORTING_OPTIONS.PRICE_ASCENDING,
+    searchParamValue: SORTING_SEARCH_PARAM_VALUES.PRICE_ASCENDING,
+  },
+  {
+    value: SORTING_OPTIONS.PRICE_DESCENDING,
+    searchParamValue: SORTING_SEARCH_PARAM_VALUES.PRiCE_DESCENDING,
+  },
+];
+
+export const defaultFilters = {
+  [FILTER_NAMES.CATEGORY]: CATEGORIES.DEFAULT,
+  [FILTER_NAMES.SORT]: SORTING_OPTIONS.DEFAULT,
+  [FILTER_NAMES.MIN_PRICE]: null,
+  [FILTER_NAMES.MAX_PRICE]: null,
+};
