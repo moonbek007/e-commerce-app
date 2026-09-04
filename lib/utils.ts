@@ -1,6 +1,8 @@
 import {
+  CATALOGUE_SEARCH_PARAMS,
   CATEGORIES,
   defaultFilters,
+  defaultPageDetails,
   FILTER_NAMES,
   FILTERS_MAP,
   SORTING_SEARCH_PARAM_VALUES,
@@ -52,4 +54,26 @@ export function generateFiltersParams(
     params.set(filterName, `${filterValue}`);
   });
   return params;
+}
+
+export function loadPaginationDetails(params: {
+  [key: string]: string | string[] | undefined;
+}) {
+  const pageDetails = { ...defaultPageDetails };
+  const currentPage = params[CATALOGUE_SEARCH_PARAMS.PAGE] as string;
+  if (currentPage) {
+    pageDetails.currentPage = parseInt(currentPage);
+
+    // TODO: temporary value before API data
+    if (pageDetails.currentPage < pageDetails.totalPages) {
+      pageDetails.hasNext = true;
+    }
+
+    // TODO: implement hasPrev + hasNext based on API data
+    if (pageDetails.currentPage > 1) {
+      pageDetails.hasPrev = true;
+    }
+  }
+
+  return { ...pageDetails };
 }

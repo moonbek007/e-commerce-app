@@ -2,8 +2,15 @@ import Image from "next/image";
 
 import Filters from "@/components/Filters";
 import ProductList from "@/components/ProductList";
+import Pagination from "@/components/Pagination";
+
+import { loadPaginationDetails } from "@/lib/utils";
 
 const CataloguePage = async ({ searchParams }: CataloguePageProps) => {
+  const params = await searchParams;
+
+  const paginationDetails = loadPaginationDetails(params);
+
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
       {/* CAMPAIGN */}
@@ -20,6 +27,9 @@ const CataloguePage = async ({ searchParams }: CataloguePageProps) => {
       </div>
       <Filters />
       <ProductList title="" />
+      {paginationDetails.totalPages > 1 && (
+        <Pagination pageDetails={paginationDetails} />
+      )}
     </div>
   );
 };

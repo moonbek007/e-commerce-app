@@ -367,3 +367,10 @@ export enum CATALOGUE_SEARCH_PARAMS {
   PAGE = "page",
   SEARCH = "search",
 }
+
+export const defaultPageDetails = {
+  currentPage: 1,
+  hasPrev: false,
+  hasNext: true,
+  totalPages: 4,
+};
