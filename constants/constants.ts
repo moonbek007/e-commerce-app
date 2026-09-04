@@ -362,3 +362,8 @@ export const FILTERS_MAP = Object.entries(defaultFilters).reduce<
   accumulator[filterName] = filterValue as null;
   return accumulator;
 }, {});
+
+export enum CATALOGUE_SEARCH_PARAMS {
+  PAGE = "page",
+  SEARCH = "search",
+}

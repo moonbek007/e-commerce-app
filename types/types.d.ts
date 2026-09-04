@@ -65,3 +65,11 @@ declare type Filters = {
   min_price: number | null;
   max_price: number | null;
 };
+
+declare type PaginationProps = {
+  pageDetails: {
+    currentPage: number;
+    hasPrev: boolean;
+    hasNext: boolean;
+  };
+};
