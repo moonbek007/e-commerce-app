@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Filters from "@/components/Filters";
 import ProductList from "@/components/ProductList";
 
 const CataloguePage = async ({ searchParams }: CataloguePageProps) => {
@@ -17,6 +18,7 @@ const CataloguePage = async ({ searchParams }: CataloguePageProps) => {
           <Image src="/woman.png" alt="" fill className="object-contain" />
         </div>
       </div>
+      <Filters />
       <ProductList title="" />
     </div>
   );
