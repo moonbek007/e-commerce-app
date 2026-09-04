@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SearchIcon } from "lucide-react";
 
 import {
-  CATALOGUE_FILTERS,
+  CATALOGUE_SEARCH_PARAMS,
   FORM_FIELDS,
   NAV_LINKS,
 } from "@/constants/constants";
 
 const SearchBar = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -26,9 +28,17 @@ const SearchBar = () => {
 
     if (productName) {
       router.push(
-        `${NAV_LINKS.CATALOGUE}?${CATALOGUE_FILTERS.SEARCH}=${productName}`,
+        `${NAV_LINKS.CATALOGUE}?${CATALOGUE_SEARCH_PARAMS.SEARCH}=${productName}`,
       );
     }
+
+    const params = new URLSearchParams(searchParams);
+    if (!params.get(CATALOGUE_SEARCH_PARAMS.SEARCH)) {
+      return;
+    }
+
+    params.delete(CATALOGUE_SEARCH_PARAMS.SEARCH);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
