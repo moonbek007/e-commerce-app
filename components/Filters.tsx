@@ -1,17 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import clsx from "clsx";
+
+import { generateFiltersParams, loadFiltersParams } from "@/lib/utils";
 
 import {
   CATEGORY_DROPDOWN_VALUES,
-  defaultFilters,
   FILTER_NAMES,
   SORTING_DROPDOWN_VALUES,
 } from "@/constants/constants";
 
 const Filters = () => {
-  const [filters, setFilters] = useState(defaultFilters);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const [filters, setFilters] = useState(loadFiltersParams(searchParams));
 
   const [isError, setIsError] = useState({
     [FILTER_NAMES.MIN_PRICE]: false,
@@ -41,16 +47,17 @@ const Filters = () => {
         setIsError((prev) => {
           return { ...prev, [name]: false };
         });
-        return;
       }
     }
+
     setFilters((prev) => {
       return { ...prev, [name]: value };
     });
   };
 
   const handleClickApplyFilters = () => {
-    console.log("Apply Filters");
+    const params = generateFiltersParams(filters);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
@@ -59,6 +66,7 @@ const Filters = () => {
         <div className="relative">
           <select
             name={FILTER_NAMES.CATEGORY}
+            value={filters[FILTER_NAMES.CATEGORY]}
             className="py-2 px-4 rounded-2xl text-xs font-medium ring-1 ring-gray-400 bg-[#EBEDED] appearance-none cursor-pointer"
             onChange={handleChangeFilter}
           >
@@ -79,6 +87,7 @@ const Filters = () => {
           type="text"
           name={FILTER_NAMES.MIN_PRICE}
           placeholder="Min price"
+          value={filters[FILTER_NAMES.MIN_PRICE] || ""}
           className={clsx("text-xs rounded-2xl p-2 w-24 ring-1", {
             "ring-gray-400": !isError[FILTER_NAMES.MIN_PRICE],
             "ring-red-400": isError[FILTER_NAMES.MIN_PRICE],
@@ -89,6 +98,7 @@ const Filters = () => {
           type="text"
           name={FILTER_NAMES.MAX_PRICE}
           placeholder="Max price"
+          value={filters[FILTER_NAMES.MAX_PRICE] || ""}
           className={clsx("text-xs rounded-2xl p-2 w-24 ring-1", {
             "ring-gray-400": !isError[FILTER_NAMES.MAX_PRICE],
             "ring-red-400": isError[FILTER_NAMES.MAX_PRICE],
@@ -97,7 +107,7 @@ const Filters = () => {
         />
         <select
           name={FILTER_NAMES.SORT}
-          id=""
+          value={filters[FILTER_NAMES.SORT]}
           className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED] ring-1 ring-gray-400 appearance-none cursor-pointer"
           onChange={handleChangeFilter}
         >

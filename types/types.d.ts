@@ -58,3 +58,10 @@ declare type ProductPageProps = {
 declare type CataloguePageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+declare type Filters = {
+  category: import("@/constants/constants").CATEGORIES;
+  sort: import("@/constants/constants").SORTING_SEARCH_PARAM_VALUES;
+  min_price: number | null;
+  max_price: number | null;
+};

@@ -333,7 +333,32 @@ export const SORTING_DROPDOWN_VALUES: {
 
 export const defaultFilters = {
   [FILTER_NAMES.CATEGORY]: CATEGORIES.DEFAULT,
-  [FILTER_NAMES.SORT]: SORTING_OPTIONS.DEFAULT,
+  [FILTER_NAMES.SORT]: SORTING_SEARCH_PARAM_VALUES.DEFAULT,
   [FILTER_NAMES.MIN_PRICE]: null,
   [FILTER_NAMES.MAX_PRICE]: null,
 };
+
+export const FILTERS_MAP = Object.entries(defaultFilters).reduce<
+  Record<string, Record<CATEGORIES | SORTING_OPTIONS, string> | null>
+>((accumulator, [filterName, filterValue]) => {
+  if (filterName === FILTER_NAMES.CATEGORY) {
+    accumulator[filterName] = CATEGORY_DROPDOWN_VALUES.reduce<
+      Record<string, string>
+    >((acc, category) => {
+      return { ...acc, [category]: category };
+    }, {});
+    return accumulator;
+  }
+
+  if (filterName === FILTER_NAMES.SORT) {
+    accumulator[filterName] = SORTING_DROPDOWN_VALUES.reduce<
+      Record<string, string>
+    >((acc, option) => {
+      return { ...acc, [option.searchParamValue]: option.value };
+    }, {});
+    return accumulator;
+  }
+
+  accumulator[filterName] = filterValue as null;
+  return accumulator;
+}, {});
