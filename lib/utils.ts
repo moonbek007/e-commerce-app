@@ -1,4 +1,5 @@
 import {
+  CART_ACTION_TYPES,
   CATALOGUE_SEARCH_PARAMS,
   CATEGORIES,
   defaultFilters,
@@ -76,4 +77,43 @@ export function loadPaginationDetails(params: {
   }
 
   return { ...pageDetails };
+}
+
+export function updateCartItemsById(
+  itemId: string,
+  items: CartItem[],
+  actionType:
+    | CART_ACTION_TYPES.ITEM_INCREMENT_QUANTITY
+    | CART_ACTION_TYPES.ITEM_DECREMENT_QUANTITY
+    | CART_ACTION_TYPES.ITEM_DELETE_ITEM,
+): { items: CartItem[]; success: boolean } {
+  const itemToEditIndex = items.findIndex((item) => item.id === itemId);
+  let success = false;
+  if (itemToEditIndex === -1) {
+    return { items, success: false };
+  }
+
+  const newItems = [...items];
+  if (actionType === CART_ACTION_TYPES.ITEM_INCREMENT_QUANTITY) {
+    const newItem = { ...newItems[itemToEditIndex] };
+    newItem.quantity += 1;
+    newItems[itemToEditIndex] = newItem;
+    success = true;
+    return { items: newItems, success };
+  }
+
+  if (actionType === CART_ACTION_TYPES.ITEM_DECREMENT_QUANTITY) {
+    const newItem = { ...newItems[itemToEditIndex] };
+    newItem.quantity -= 1;
+    newItems[itemToEditIndex] = newItem;
+    success = true;
+    return { items: newItems, success };
+  }
+
+  if (actionType === CART_ACTION_TYPES.ITEM_DELETE_ITEM) {
+    newItems.splice(itemToEditIndex, 1);
+    success = true;
+    return { items: newItems, success };
+  }
+  return { items, success };
 }

@@ -392,9 +392,35 @@ export const defaultPromocode: PromocodeInfo = {
   isPromocodeOpen: false,
 };
 
+const cartItems: CartItem[] = [
+  {
+    id: "1",
+    name: "Classic Tote Bag",
+    quantity: 2,
+    image: "/product.png",
+    color: "Red",
+    size: "L",
+    price: {
+      originalPrice: 19.99,
+      discountedPrice: 10.99,
+    },
+  },
+  {
+    id: "2",
+    name: "Classic T-shirt",
+    quantity: 1,
+    image: "/product.png",
+    color: "Green",
+    size: "M",
+    price: {
+      originalPrice: 16.99,
+    },
+  },
+];
+
 export const defaultCart: Cart = {
   isEditOn: false,
-  items: [],
+  items: cartItems,
   promocode: defaultPromocode,
   pricing: {
     subTotal: 0,

@@ -113,20 +113,24 @@ declare type Cart = {
   };
 };
 
-declare type EditModeActionType =
-  | {
-      type: import("@/constants/constants").CART_ACTION_TYPES.EDIT_ENABLE_EDIT_MODE;
-    }
-  | {
-      type: import("@/constants/constants").CART_ACTION_TYPES.EDIT_SAVE_CHANGES;
-    }
-  | {
-      type: import("@/constants/constants").CART_ACTION_TYPES.EDIT_UNDO_CHANGES;
-    };
+declare type EditModeActionType = {
+  type:
+    | import("@/constants/constants").CART_ACTION_TYPES.EDIT_ENABLE_EDIT_MODE
+    | import("@/constants/constants").CART_ACTION_TYPES.EDIT_SAVE_CHANGES
+    | import("@/constants/constants").CART_ACTION_TYPES.EDIT_UNDO_CHANGES;
+};
+
+declare type ChangeCartItemDetailsActionType = {
+  type:
+    | import("@/constants/constants").CART_ACTION_TYPES.ITEM_INCREMENT_QUANTITY
+    | import("@/constants/constants").CART_ACTION_TYPES.ITEM_DECREMENT_QUANTITY
+    | import("@/constants/constants").CART_ACTION_TYPES.ITEM_DELETE_ITEM;
+  payload: { id: string };
+};
 
 declare type CartReducerAction =
   // | {
   //     type: string;
   //     payload: Record<string, string>;
   //   } |
-  EditModeActionType;
+  EditModeActionType | ChangeCartItemDetailsActionType;
