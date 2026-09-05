@@ -113,7 +113,20 @@ declare type Cart = {
   };
 };
 
-declare type CartReducerAction = {
-  type: string;
-  payload: Record<string, string>;
-};
+declare type EditModeActionType =
+  | {
+      type: import("@/constants/constants").CART_ACTION_TYPES.EDIT_ENABLE_EDIT_MODE;
+    }
+  | {
+      type: import("@/constants/constants").CART_ACTION_TYPES.EDIT_SAVE_CHANGES;
+    }
+  | {
+      type: import("@/constants/constants").CART_ACTION_TYPES.EDIT_UNDO_CHANGES;
+    };
+
+declare type CartReducerAction =
+  // | {
+  //     type: string;
+  //     payload: Record<string, string>;
+  //   } |
+  EditModeActionType;

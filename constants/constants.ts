@@ -402,3 +402,12 @@ export const defaultCart: Cart = {
     total: 0,
   },
 };
+
+export enum CART_ACTION_TYPES {
+  EDIT_ENABLE_EDIT_MODE = "enable edit mode",
+  EDIT_SAVE_CHANGES = "save changes",
+  EDIT_UNDO_CHANGES = "undo changes",
+  ITEM_INCREMENT_QUANTITY = "increment quantity",
+  ITEM_DECREMENT_QUANTITY = "decrement quantity",
+  ITEM_DELETE_ITEM = "delete item",
+}

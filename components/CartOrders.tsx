@@ -1,12 +1,13 @@
 "use client";
 
 import { useReducer } from "react";
-import { PencilIcon } from "lucide-react";
+
+import EditButtons from "./EditButtons";
 
 import { CartDispatchContext, CartStateContext } from "@/lib/context";
+import { cartReducer } from "@/lib/reducer";
 
 import { defaultCart } from "@/constants/constants";
-import { cartReducer } from "@/lib/reducer";
 
 const CartOrders = () => {
   const [cart, dispatch] = useReducer(cartReducer, defaultCart);
@@ -19,12 +20,7 @@ const CartOrders = () => {
             <h2 className="text-base font-medium text-gray-900">
               Order Summary
             </h2>
-            <button className="flex gap-1 items-center text-xs underline text-gray-600 hover:text-black cursor-pointer p-1.5">
-              <span>
-                <PencilIcon className="w-3.5 h-3.5" />
-              </span>
-              <span>Edit Cart</span>
-            </button>
+            <EditButtons />
           </div>
           <div className="border border-gray-200"> </div>
         </CartDispatchContext>
