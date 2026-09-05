@@ -73,3 +73,47 @@ declare type PaginationProps = {
     hasNext: boolean;
   };
 };
+
+declare type CartItem = {
+  id: string;
+  name: string;
+  quantity: number;
+  image: string;
+  price: {
+    originalPrice: number;
+    discountedPrice?: number;
+  };
+  color: string;
+  size: string;
+};
+
+declare type Promocode = {
+  name: import("@/constants/constants").PROMOCODES;
+  discount: number;
+};
+
+declare type PromocodeInfo = {
+  name: string;
+  appliedPromocodes: Promocode[];
+  isPromocodeOpen: boolean;
+};
+
+declare type Cart = {
+  isEditOn: boolean;
+  items: CartItem[];
+  promocode: {
+    name: string;
+    appliedPromocodes: Promocode[];
+    isPromocodeOpen: boolean;
+  };
+  pricing: {
+    subTotal: number;
+    delivery: number;
+    total: number;
+  };
+};
+
+declare type CartReducerAction = {
+  type: string;
+  payload: Record<string, string>;
+};

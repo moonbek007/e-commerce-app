@@ -374,3 +374,31 @@ export const defaultPageDetails = {
   hasNext: true,
   totalPages: 4,
 };
+
+export enum PROMOCODES {
+  MINUS_20 = "MINUS20",
+}
+
+export const PROMOCODES_MAP = {
+  [PROMOCODES.MINUS_20]: {
+    name: PROMOCODES.MINUS_20,
+    discount: 0.2,
+  },
+};
+
+export const defaultPromocode: PromocodeInfo = {
+  name: PROMOCODES.MINUS_20,
+  appliedPromocodes: [],
+  isPromocodeOpen: false,
+};
+
+export const defaultCart: Cart = {
+  isEditOn: false,
+  items: [],
+  promocode: defaultPromocode,
+  pricing: {
+    subTotal: 0,
+    delivery: 0,
+    total: 0,
+  },
+};
