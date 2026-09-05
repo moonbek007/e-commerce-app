@@ -117,3 +117,81 @@ export function updateCartItemsById(
   }
   return { items, success };
 }
+
+export function calculateBills(
+  items: CartItem[],
+  promocodes?: Promocode[],
+  otherFees?: { name: string; value: number }[],
+) {
+  const bill = items.reduce<{
+    subTotal: number;
+    total: number;
+    discounts: number;
+    totalDiscounts: number;
+    totalDiscountPercentage: number;
+    appliedPromocodeDiscount: {
+      percentage: number;
+      value: number;
+    };
+  }>(
+    (acc, item) => {
+      acc.subTotal += item.price.originalPrice;
+
+      if (item.price.discountedPrice) {
+        acc.total += item.price.discountedPrice;
+        const difference =
+          item.price.originalPrice - item.price.discountedPrice;
+        acc.discounts += difference;
+        acc.totalDiscounts += difference;
+        return acc;
+      }
+
+      acc.total += item.price.originalPrice;
+      return acc;
+    },
+    {
+      subTotal: 0,
+      total: 0,
+      discounts: 0,
+      totalDiscounts: 0,
+      totalDiscountPercentage: 0,
+      appliedPromocodeDiscount: {
+        percentage: 0,
+        value: 0,
+      },
+    },
+  );
+
+  // If there are other fees to apply: e.g. Delivery
+  otherFees?.forEach((fee) => {
+    bill.subTotal += fee.value;
+    bill.total += fee.value;
+  });
+
+  // IF promocodes have been applied
+  if (promocodes) {
+    const promocodeDiscountPercentage =
+      calculatePromocodeDiscountPercentage(promocodes);
+    const promocodeDiscount = promocodes.length
+      ? bill.subTotal / promocodeDiscountPercentage
+      : 0;
+    bill.appliedPromocodeDiscount.percentage = promocodeDiscountPercentage;
+    bill.appliedPromocodeDiscount.value = promocodeDiscount;
+    bill.total -= promocodeDiscount;
+    bill.totalDiscounts += promocodeDiscount;
+  }
+
+  bill.totalDiscountPercentage = (bill.totalDiscounts * 100) / bill.subTotal;
+  return bill;
+}
+
+export function calculatePromocodeDiscountPercentage(
+  appliedPromocodes: Promocode[],
+) {
+  return (
+    appliedPromocodes.reduce<number>((sum, prmCode) => {
+      sum += prmCode.discount;
+      return sum;
+    }, 0) * 100
+  );
+}

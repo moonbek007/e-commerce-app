@@ -5,6 +5,7 @@ import { useReducer } from "react";
 import EditButtons from "./EditButtons";
 import CartItems from "./CartItems";
 import PromocodeDetails from "./PromocodeDetails";
+import CartBillInfo from "./CartBillInfo";
 
 import { CartDispatchContext, CartStateContext } from "@/lib/context";
 import { cartReducer } from "@/lib/reducer";
@@ -28,6 +29,8 @@ const CartOrders = () => {
           <CartItems />
           <div className="border border-gray-200"> </div>
           <PromocodeDetails />
+          <div className="border border-gray-200"> </div>
+          <CartBillInfo />
         </CartDispatchContext>
       </CartStateContext>
     </div>

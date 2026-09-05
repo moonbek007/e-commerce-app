@@ -1,3 +1,5 @@
+import { calculateBills } from "@/lib/utils";
+
 export enum NAV_LINKS {
   HOME = "/",
   CATALOGUE = "/catalogue",
@@ -388,7 +390,6 @@ export const PROMOCODES_MAP = {
 
 export const defaultPromocode: PromocodeInfo = {
   name: PROMOCODES.MINUS_20,
-  appliedPromocodes: [],
   isPromocodeOpen: false,
 };
 
@@ -418,14 +419,25 @@ const cartItems: CartItem[] = [
   },
 ];
 
+const bill = calculateBills(cartItems, []);
+
 export const defaultCart: Cart = {
   isEditOn: false,
   items: cartItems,
-  promocode: defaultPromocode,
+  promocode: {
+    appliedPromocodes: [],
+  },
   pricing: {
-    subTotal: 0,
+    subTotal: bill.subTotal,
     delivery: 0,
-    total: 0,
+    discounts: bill.discounts,
+    totalDiscounts: bill.totalDiscounts,
+    totalDiscountPercentage: bill.totalDiscountPercentage,
+    total: bill.total,
+    appliedPromocodeDiscount: {
+      percentage: bill.appliedPromocodeDiscount.percentage,
+      value: bill.appliedPromocodeDiscount.value,
+    },
   },
 };
 

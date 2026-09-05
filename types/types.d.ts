@@ -93,8 +93,7 @@ declare type Promocode = {
 };
 
 declare type PromocodeInfo = {
-  name: string;
-  appliedPromocodes: Promocode[];
+  name: import("@/constants/constants").PROMOCODES;
   isPromocodeOpen: boolean;
 };
 
@@ -107,7 +106,14 @@ declare type Cart = {
   pricing: {
     subTotal: number;
     delivery: number;
+    discounts: number;
+    totalDiscounts: number;
+    totalDiscountPercentage: number;
     total: number;
+    appliedPromocodeDiscount: {
+      percentage: number;
+      value: number;
+    };
   };
 };
 
