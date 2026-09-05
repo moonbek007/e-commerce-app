@@ -102,9 +102,7 @@ declare type Cart = {
   isEditOn: boolean;
   items: CartItem[];
   promocode: {
-    name: string;
     appliedPromocodes: Promocode[];
-    isPromocodeOpen: boolean;
   };
   pricing: {
     subTotal: number;
@@ -128,9 +126,14 @@ declare type ChangeCartItemDetailsActionType = {
   payload: { id: string };
 };
 
+declare type PromocodeActionType = {
+  type: import("@/constants/constants").CART_ACTION_TYPES.PROMOCODE_APPLY_PROMOCODE;
+  payload: Promocode;
+};
+
 declare type CartReducerAction =
   // | {
   //     type: string;
   //     payload: Record<string, string>;
   //   } |
-  EditModeActionType | ChangeCartItemDetailsActionType;
+  EditModeActionType | ChangeCartItemDetailsActionType | PromocodeActionType;

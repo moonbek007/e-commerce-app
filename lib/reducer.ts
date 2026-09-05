@@ -40,6 +40,21 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
         return state;
       }
       return { ...state, items: itemsAfterDelete.items };
+    case CART_ACTION_TYPES.PROMOCODE_APPLY_PROMOCODE:
+      const prmCode = action.payload;
+      if (
+        state.promocode.appliedPromocodes.find(
+          (promocode) => promocode.name === prmCode.name,
+        )
+      )
+        return state;
+      return {
+        ...state,
+        promocode: {
+          ...state.promocode,
+          appliedPromocodes: [...state.promocode.appliedPromocodes, prmCode],
+        },
+      };
     default:
       break;
   }

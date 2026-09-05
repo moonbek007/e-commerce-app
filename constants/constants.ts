@@ -436,4 +436,5 @@ export enum CART_ACTION_TYPES {
   ITEM_INCREMENT_QUANTITY = "increment quantity",
   ITEM_DECREMENT_QUANTITY = "decrement quantity",
   ITEM_DELETE_ITEM = "delete item",
+  PROMOCODE_APPLY_PROMOCODE = "apply promocode",
 }
