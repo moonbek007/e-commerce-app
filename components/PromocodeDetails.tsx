@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PlusIcon, TagIcon, XIcon } from "lucide-react";
+import { ListXIcon, PlusIcon, TagIcon, XIcon } from "lucide-react";
 
 import { useCartContext } from "@/hooks/useCartContext";
 import { useCartDispatch } from "@/hooks/useCartDispatch";
@@ -11,11 +11,11 @@ import {
 } from "@/constants/constants";
 
 const PromocodeDetails = () => {
-  const { items } = useCartContext()!;
+  const { items, promocode } = useCartContext()!;
   const dispatch = useCartDispatch()!;
 
   const [promocodeDetails, setPromocodeDetails] = useState({
-    name: defaultPromocode.name,
+    name: "",
     isPromocodeOpen: defaultPromocode.isPromocodeOpen,
   });
 
@@ -45,7 +45,7 @@ const PromocodeDetails = () => {
   const handleApplyPromocode = () => {
     handleClosePromocode();
 
-    const prmCode = PROMOCODES_MAP[promocodeDetails.name];
+    const prmCode = PROMOCODES_MAP[promocodeDetails.name as PROMOCODES];
     if (!prmCode) return;
 
     dispatch({
@@ -54,17 +54,35 @@ const PromocodeDetails = () => {
     });
   };
 
+  const handleDiscardPromocodes = () => {
+    dispatch({
+      type: CART_ACTION_TYPES.PROMOCODE_DISCARD_PROMOCODES,
+    });
+  };
+
   return (
     <div className="flex justify-between py-2.5">
       <div className="flex gap-2">
-        <button
-          disabled={!items.length}
-          onClick={handleTogglePromocode}
-          className="flex items-center py-1 gap-1.5 text-sm underline text-gray-700 hover:text-black disabled:opacity-30 cursor-pointer"
-        >
-          <TagIcon className="w-3.5 h-3.5" />
-          Enter a promo code
-        </button>
+        {!!promocode.appliedPromocodes.length ? (
+          <button
+            disabled={!items.length || !promocode.appliedPromocodes.length}
+            onClick={handleDiscardPromocodes}
+            className="flex items-center py-1 gap-1.5 text-sm text-gray-700 hover:text-black disabled:opacity-30 cursor-pointer"
+          >
+            <ListXIcon className="w-3.5 h-3.5" />
+            Discard promocodes
+          </button>
+        ) : (
+          <button
+            disabled={!items.length || !!promocode.appliedPromocodes.length}
+            onClick={handleTogglePromocode}
+            className="flex items-center py-1 gap-1.5 text-sm underline text-gray-700 hover:text-black disabled:opacity-30 cursor-pointer"
+          >
+            <TagIcon className="w-3.5 h-3.5" />
+            Enter a promo code
+          </button>
+        )}
+
         {promocodeDetails.isPromocodeOpen && (
           <input
             type="text"

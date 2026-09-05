@@ -1,6 +1,10 @@
-import { updateCartItemsById } from "@/lib/utils";
+import {
+  calculateBills,
+  calculateBillsAfterPromocode,
+  updateCartItemsById,
+} from "@/lib/utils";
 
-import { CART_ACTION_TYPES } from "@/constants/constants";
+import { CART_ACTION_TYPES, CART_BILL_EXTRA_FEES } from "@/constants/constants";
 
 export function cartReducer(state: Cart, action: CartReducerAction): Cart {
   switch (action.type) {
@@ -48,12 +52,31 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
         )
       )
         return state;
+      const bill = calculateBillsAfterPromocode(
+        state.pricing,
+        prmCode.discount,
+      );
       return {
         ...state,
         promocode: {
           ...state.promocode,
           appliedPromocodes: [...state.promocode.appliedPromocodes, prmCode],
         },
+        pricing: { ...bill },
+      };
+    case CART_ACTION_TYPES.PROMOCODE_DISCARD_PROMOCODES:
+      const extraFees: { name: string; value: number }[] = [];
+      if (state.pricing.delivery > 0) {
+        extraFees.push({
+          name: CART_BILL_EXTRA_FEES.DELIVERY,
+          value: state.pricing.delivery,
+        });
+      }
+      const billWithoutPromocdes = calculateBills(state.items, [], extraFees);
+      return {
+        ...state,
+        promocode: { appliedPromocodes: [] },
+        pricing: { ...billWithoutPromocdes },
       };
     default:
       break;

@@ -132,10 +132,14 @@ declare type ChangeCartItemDetailsActionType = {
   payload: { id: string };
 };
 
-declare type PromocodeActionType = {
-  type: import("@/constants/constants").CART_ACTION_TYPES.PROMOCODE_APPLY_PROMOCODE;
-  payload: Promocode;
-};
+declare type PromocodeActionType =
+  | {
+      type: import("@/constants/constants").CART_ACTION_TYPES.PROMOCODE_APPLY_PROMOCODE;
+      payload: Promocode;
+    }
+  | {
+      type: import("@/constants/constants").CART_ACTION_TYPES.PROMOCODE_DISCARD_PROMOCODES;
+    };
 
 declare type CartReducerAction =
   // | {
@@ -143,3 +147,16 @@ declare type CartReducerAction =
   //     payload: Record<string, string>;
   //   } |
   EditModeActionType | ChangeCartItemDetailsActionType | PromocodeActionType;
+
+declare type CartBill = {
+  subTotal: number;
+  total: number;
+  delivery: number;
+  discounts: number;
+  totalDiscounts: number;
+  totalDiscountPercentage: number;
+  appliedPromocodeDiscount: {
+    percentage: number;
+    value: number;
+  };
+};

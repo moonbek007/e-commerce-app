@@ -1,5 +1,6 @@
 import {
   CART_ACTION_TYPES,
+  CART_BILL_EXTRA_FEES,
   CATALOGUE_SEARCH_PARAMS,
   CATEGORIES,
   defaultFilters,
@@ -123,17 +124,7 @@ export function calculateBills(
   promocodes?: Promocode[],
   otherFees?: { name: string; value: number }[],
 ) {
-  const bill = items.reduce<{
-    subTotal: number;
-    total: number;
-    discounts: number;
-    totalDiscounts: number;
-    totalDiscountPercentage: number;
-    appliedPromocodeDiscount: {
-      percentage: number;
-      value: number;
-    };
-  }>(
+  const bill = items.reduce<CartBill>(
     (acc, item) => {
       acc.subTotal += item.price.originalPrice;
 
@@ -152,6 +143,7 @@ export function calculateBills(
     {
       subTotal: 0,
       total: 0,
+      delivery: 0,
       discounts: 0,
       totalDiscounts: 0,
       totalDiscountPercentage: 0,
@@ -164,6 +156,9 @@ export function calculateBills(
 
   // If there are other fees to apply: e.g. Delivery
   otherFees?.forEach((fee) => {
+    if (fee.name === CART_BILL_EXTRA_FEES.DELIVERY) {
+      bill.delivery = fee.value;
+    }
     bill.subTotal += fee.value;
     bill.total += fee.value;
   });
@@ -194,4 +189,18 @@ export function calculatePromocodeDiscountPercentage(
       return sum;
     }, 0) * 100
   );
+}
+
+export function calculateBillsAfterPromocode(bill: CartBill, discount: number) {
+  const newBill = { ...bill };
+  const discountPercentage = discount * 100;
+  const promocodeDiscount =
+    ((newBill.subTotal - newBill.discounts) * discountPercentage) / 100;
+  newBill.appliedPromocodeDiscount.percentage = discountPercentage;
+  newBill.appliedPromocodeDiscount.value = promocodeDiscount;
+  newBill.total -= promocodeDiscount;
+  newBill.totalDiscounts += promocodeDiscount;
+  newBill.totalDiscountPercentage =
+    (newBill.totalDiscounts * 100) / newBill.subTotal;
+  return newBill;
 }

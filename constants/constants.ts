@@ -378,13 +378,28 @@ export const defaultPageDetails = {
 };
 
 export enum PROMOCODES {
+  MINUS_30 = "MINUS30",
   MINUS_20 = "MINUS20",
+  MINUS_10 = "MINUS10",
+  MINUS_15 = "MINUS15",
 }
 
 export const PROMOCODES_MAP = {
   [PROMOCODES.MINUS_20]: {
     name: PROMOCODES.MINUS_20,
     discount: 0.2,
+  },
+  [PROMOCODES.MINUS_10]: {
+    name: PROMOCODES.MINUS_10,
+    discount: 0.1,
+  },
+  [PROMOCODES.MINUS_15]: {
+    name: PROMOCODES.MINUS_15,
+    discount: 0.15,
+  },
+  [PROMOCODES.MINUS_30]: {
+    name: PROMOCODES.MINUS_30,
+    discount: 0.3,
   },
 };
 
@@ -402,8 +417,8 @@ const cartItems: CartItem[] = [
     color: "Red",
     size: "L",
     price: {
-      originalPrice: 19.99,
-      discountedPrice: 10.99,
+      originalPrice: 100,
+      discountedPrice: 90,
     },
   },
   {
@@ -414,12 +429,41 @@ const cartItems: CartItem[] = [
     color: "Green",
     size: "M",
     price: {
-      originalPrice: 16.99,
+      originalPrice: 50,
     },
   },
 ];
 
-const bill = calculateBills(cartItems, []);
+export enum DELIVERY_TYPES {
+  FREE = "Free",
+  FAST = "Fast",
+}
+
+export enum CART_BILL_EXTRA_FEES {
+  DELIVERY = "Delivery",
+}
+
+export const DELIVERY_MAP = {
+  [DELIVERY_TYPES.FREE]: {
+    name: DELIVERY_TYPES.FREE,
+    cost: 0,
+  },
+  [DELIVERY_TYPES.FAST]: {
+    name: DELIVERY_TYPES.FAST,
+    cost: 20,
+  },
+};
+
+const bill: CartBill = calculateBills(
+  cartItems,
+  [],
+  [
+    {
+      name: CART_BILL_EXTRA_FEES.DELIVERY,
+      value: DELIVERY_MAP[DELIVERY_TYPES.FREE].cost,
+    },
+  ],
+);
 
 export const defaultCart: Cart = {
   isEditOn: false,
@@ -429,7 +473,7 @@ export const defaultCart: Cart = {
   },
   pricing: {
     subTotal: bill.subTotal,
-    delivery: 0,
+    delivery: bill.delivery,
     discounts: bill.discounts,
     totalDiscounts: bill.totalDiscounts,
     totalDiscountPercentage: bill.totalDiscountPercentage,
@@ -449,4 +493,5 @@ export enum CART_ACTION_TYPES {
   ITEM_DECREMENT_QUANTITY = "decrement quantity",
   ITEM_DELETE_ITEM = "delete item",
   PROMOCODE_APPLY_PROMOCODE = "apply promocode",
+  PROMOCODE_DISCARD_PROMOCODES = "discard promocodes",
 }
