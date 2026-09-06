@@ -159,26 +159,23 @@ export function calculateBills(
   );
 
   // If there are other fees to apply: e.g. Delivery
-  const otherFeesTotal =
-    otherFees?.reduce<number>((total, fee) => {
-      bill.extraFees[fee.name] = {
-        cost: fee.cost,
-        type: fee.type as DELIVERY_TYPES,
-      };
-      if (items.length) {
-        bill.subTotal += fee.cost;
-        bill.total += fee.cost;
-      }
-      return total + fee.cost;
-    }, 0) || 0;
+  otherFees?.forEach((fee) => {
+    bill.extraFees[fee.name] = {
+      cost: fee.cost,
+      type: fee.type as DELIVERY_TYPES,
+    };
+    if (items.length) {
+      bill.subTotal += fee.cost;
+      bill.total += fee.cost;
+    }
+  });
 
   // IF promocodes have been applied
   if (promocodes) {
     const promocodeDiscountPercentage =
       calculatePromocodeDiscountPercentage(promocodes);
     const promocodeDiscount = promocodes.length
-      ? (bill.subTotal - bill.discounts - otherFeesTotal) /
-        promocodeDiscountPercentage
+      ? ((bill.subTotal - bill.discounts) * promocodeDiscountPercentage) / 100
       : 0;
     bill.appliedPromocodeDiscount.percentage = promocodeDiscountPercentage;
     bill.appliedPromocodeDiscount.value = promocodeDiscount;
