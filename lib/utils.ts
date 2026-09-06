@@ -5,6 +5,7 @@ import {
   CATEGORIES,
   defaultFilters,
   defaultPageDetails,
+  DELIVERY_TYPES,
   FILTER_NAMES,
   FILTERS_MAP,
   SORTING_SEARCH_PARAM_VALUES,
@@ -122,7 +123,7 @@ export function updateCartItemsById(
 export function calculateBills(
   items: CartItem[],
   promocodes?: Promocode[],
-  otherFees?: { name: string; value: number }[],
+  otherFees?: ExtraFee[],
 ) {
   const bill: CartBill = items.reduce<CartBill>(
     (acc, item) => {
@@ -143,8 +144,11 @@ export function calculateBills(
     {
       subTotal: 0,
       total: 0,
-      delivery: 0,
+      extraFees: {
+        delivery: { type: DELIVERY_TYPES.FREE, cost: 0 },
+      },
       discounts: 0,
+      discountsPercentage: 0,
       totalDiscounts: 0,
       totalDiscountPercentage: 0,
       appliedPromocodeDiscount: {
@@ -155,26 +159,36 @@ export function calculateBills(
   );
 
   // If there are other fees to apply: e.g. Delivery
-  otherFees?.forEach((fee) => {
-    if (fee.name === CART_BILL_EXTRA_FEES.DELIVERY) {
-      bill.delivery = fee.value;
-    }
-    bill.subTotal += fee.value;
-    bill.total += fee.value;
-  });
+  const otherFeesTotal =
+    otherFees?.reduce<number>((total, fee) => {
+      bill.extraFees[fee.name] = {
+        cost: fee.cost,
+        type: fee.type as DELIVERY_TYPES,
+      };
+      if (items.length) {
+        bill.subTotal += fee.cost;
+        bill.total += fee.cost;
+      }
+      return total + fee.cost;
+    }, 0) || 0;
 
   // IF promocodes have been applied
   if (promocodes) {
     const promocodeDiscountPercentage =
       calculatePromocodeDiscountPercentage(promocodes);
     const promocodeDiscount = promocodes.length
-      ? (bill.subTotal - bill.discounts) / promocodeDiscountPercentage
+      ? (bill.subTotal - bill.discounts - otherFeesTotal) /
+        promocodeDiscountPercentage
       : 0;
     bill.appliedPromocodeDiscount.percentage = promocodeDiscountPercentage;
     bill.appliedPromocodeDiscount.value = promocodeDiscount;
     bill.total -= promocodeDiscount;
     bill.totalDiscounts += promocodeDiscount;
   }
+
+  bill.discountsPercentage = !!items.length
+    ? (bill.discounts * 100) / bill.subTotal
+    : 0;
 
   bill.totalDiscountPercentage = !!items.length
     ? (bill.totalDiscounts * 100) / bill.subTotal
@@ -205,4 +219,18 @@ export function calculateBillsAfterPromocode(bill: CartBill, discount: number) {
   newBill.totalDiscountPercentage =
     (newBill.totalDiscounts * 100) / newBill.subTotal;
   return newBill;
+}
+
+export function getExtraFees(fees: CartBillExtraFees): ExtraFee[] {
+  return Object.entries(fees).reduce<ExtraFee[]>(
+    (acc, [feeName, feeValues]) => {
+      acc.push({
+        name: feeName as CART_BILL_EXTRA_FEES,
+        cost: feeValues.cost,
+        type: feeValues.type,
+      });
+      return [...acc];
+    },
+    [],
+  );
 }

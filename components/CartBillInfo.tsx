@@ -10,16 +10,34 @@ const CartBillInfo = () => {
           <span>Subtotal</span>
           <span className="text-gray-900">${pricing.subTotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between">
-          <span>Delivery</span>
-          <span className="text-gray-900">
-            {!pricing.delivery ? "Free" : `$${pricing.delivery.toFixed(2)}`}
-          </span>
-        </div>
-        <div className="flex justify-between">
-          <span>Price Discounts</span>
-          <span className="text-gray-900">${pricing.discounts.toFixed(2)}</span>
-        </div>
+        {!!pricing.total && (
+          <div className="flex justify-between">
+            <span>Delivery</span>
+            <span className="text-gray-900">
+              {!pricing.extraFees.delivery
+                ? "Free"
+                : `$${pricing.extraFees.delivery.cost.toFixed(2)}`}
+            </span>
+          </div>
+        )}
+        {!!pricing.discounts && (
+          <div className="flex justify-between">
+            <div>
+              <span>Price Discounts</span>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              {!!pricing.discountsPercentage && (
+                <span className="text-xs text-green-600">
+                  -{pricing.discountsPercentage.toFixed(2)}%
+                </span>
+              )}
+              <span className="text-gray-900">
+                ${pricing.discounts.toFixed(2)}
+              </span>
+            </div>
+          </div>
+        )}
         {!!promocode.appliedPromocodes.length && (
           <div className="flex justify-between">
             <div className="flex gap-2">
@@ -47,9 +65,11 @@ const CartBillInfo = () => {
             <span>Total Discounts</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-green-600">
-              -{pricing.totalDiscountPercentage.toFixed(2)}%
-            </span>
+            {!!pricing.totalDiscountPercentage && (
+              <span className="text-xs text-green-600">
+                -{pricing.totalDiscountPercentage.toFixed(2)}%
+              </span>
+            )}
             <span className="text-gray-900">
               ${pricing.totalDiscounts.toFixed(2)}
             </span>

@@ -1,10 +1,11 @@
 import {
   calculateBills,
   calculateBillsAfterPromocode,
+  getExtraFees,
   updateCartItemsById,
 } from "@/lib/utils";
 
-import { CART_ACTION_TYPES, CART_BILL_EXTRA_FEES } from "@/constants/constants";
+import { CART_ACTION_TYPES } from "@/constants/constants";
 
 export function cartReducer(state: Cart, action: CartReducerAction): Cart {
   switch (action.type) {
@@ -26,6 +27,7 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
       const billAfterIncrement = calculateBills(
         itemsAfterIncrement.items,
         state.promocode.appliedPromocodes,
+        getExtraFees(state.pricing.extraFees),
       );
       return {
         ...state,
@@ -44,6 +46,7 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
       const billAfterDecrement = calculateBills(
         itemsAfterDecrement.items,
         state.promocode.appliedPromocodes,
+        getExtraFees(state.pricing.extraFees),
       );
       return {
         ...state,
@@ -62,6 +65,7 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
       const billAfterDelete = calculateBills(
         itemsAfterDelete.items,
         state.promocode.appliedPromocodes,
+        getExtraFees(state.pricing.extraFees),
       );
       return {
         ...state,
@@ -94,14 +98,11 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
         pricing: { ...bill },
       };
     case CART_ACTION_TYPES.PROMOCODE_DISCARD_PROMOCODES:
-      const extraFees: { name: string; value: number }[] = [];
-      if (state.pricing.delivery > 0) {
-        extraFees.push({
-          name: CART_BILL_EXTRA_FEES.DELIVERY,
-          value: state.pricing.delivery,
-        });
-      }
-      const billWithoutPromocdes = calculateBills(state.items, [], extraFees);
+      const billWithoutPromocdes = calculateBills(
+        state.items,
+        [],
+        getExtraFees(state.pricing.extraFees),
+      );
       return {
         ...state,
         promocode: { appliedPromocodes: [] },

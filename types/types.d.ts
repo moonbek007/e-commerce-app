@@ -138,12 +138,26 @@ declare type CartReducerAction =
 declare type CartBill = {
   subTotal: number;
   total: number;
-  delivery: number;
+  extraFees: CartBillExtraFees;
   discounts: number;
+  discountsPercentage: number;
   totalDiscounts: number;
   totalDiscountPercentage: number;
   appliedPromocodeDiscount: {
     percentage: number;
     value: number;
+  };
+};
+
+declare type ExtraFee = {
+  name: import("@/constants/constants").CART_BILL_EXTRA_FEES;
+  cost: number;
+  type?: import("@/constants/constants").DELIVERY_TYPES;
+};
+
+declare type CartBillExtraFees = {
+  delivery: {
+    type: import("@/constants/constants").DELIVERY_TYPES;
+    cost: number;
   };
 };

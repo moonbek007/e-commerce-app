@@ -424,12 +424,24 @@ const cartItems: CartItem[] = [
   {
     id: "2",
     name: "Classic T-shirt",
-    quantity: 1,
+    quantity: 3,
     image: "/product.png",
     color: "Green",
     size: "M",
     price: {
       originalPrice: 50,
+    },
+  },
+  {
+    id: "3",
+    name: "Armani Leather Jacket",
+    quantity: 2,
+    image: "/product.png",
+    color: "Green",
+    size: "M",
+    price: {
+      originalPrice: 150,
+      discountedPrice: 120,
     },
   },
 ];
@@ -440,7 +452,7 @@ export enum DELIVERY_TYPES {
 }
 
 export enum CART_BILL_EXTRA_FEES {
-  DELIVERY = "Delivery",
+  DELIVERY = "delivery",
 }
 
 export const DELIVERY_MAP = {
@@ -460,7 +472,8 @@ const bill: CartBill = calculateBills(
   [
     {
       name: CART_BILL_EXTRA_FEES.DELIVERY,
-      value: DELIVERY_MAP[DELIVERY_TYPES.FREE].cost,
+      cost: DELIVERY_MAP[DELIVERY_TYPES.FAST].cost,
+      type: DELIVERY_TYPES.FAST,
     },
   ],
 );
@@ -473,8 +486,9 @@ export const defaultCart: Cart = {
   },
   pricing: {
     subTotal: bill.subTotal,
-    delivery: bill.delivery,
+    extraFees: { delivery: bill.extraFees.delivery },
     discounts: bill.discounts,
+    discountsPercentage: bill.discountsPercentage,
     totalDiscounts: bill.totalDiscounts,
     totalDiscountPercentage: bill.totalDiscountPercentage,
     total: bill.total,
