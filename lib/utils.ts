@@ -124,7 +124,7 @@ export function calculateBills(
   promocodes?: Promocode[],
   otherFees?: { name: string; value: number }[],
 ) {
-  const bill = items.reduce<CartBill>(
+  const bill: CartBill = items.reduce<CartBill>(
     (acc, item) => {
       acc.subTotal += item.price.originalPrice * item.quantity;
 
@@ -168,7 +168,7 @@ export function calculateBills(
     const promocodeDiscountPercentage =
       calculatePromocodeDiscountPercentage(promocodes);
     const promocodeDiscount = promocodes.length
-      ? bill.subTotal / promocodeDiscountPercentage
+      ? (bill.subTotal - bill.discounts) / promocodeDiscountPercentage
       : 0;
     bill.appliedPromocodeDiscount.percentage = promocodeDiscountPercentage;
     bill.appliedPromocodeDiscount.value = promocodeDiscount;
@@ -176,7 +176,9 @@ export function calculateBills(
     bill.totalDiscounts += promocodeDiscount;
   }
 
-  bill.totalDiscountPercentage = (bill.totalDiscounts * 100) / bill.subTotal;
+  bill.totalDiscountPercentage = !!items.length
+    ? (bill.totalDiscounts * 100) / bill.subTotal
+    : 0;
   return bill;
 }
 

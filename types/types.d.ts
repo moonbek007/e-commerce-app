@@ -103,18 +103,7 @@ declare type Cart = {
   promocode: {
     appliedPromocodes: Promocode[];
   };
-  pricing: {
-    subTotal: number;
-    delivery: number;
-    discounts: number;
-    totalDiscounts: number;
-    totalDiscountPercentage: number;
-    total: number;
-    appliedPromocodeDiscount: {
-      percentage: number;
-      value: number;
-    };
-  };
+  pricing: CartBill;
 };
 
 declare type EditModeActionType = {
@@ -142,11 +131,9 @@ declare type PromocodeActionType =
     };
 
 declare type CartReducerAction =
-  // | {
-  //     type: string;
-  //     payload: Record<string, string>;
-  //   } |
-  EditModeActionType | ChangeCartItemDetailsActionType | PromocodeActionType;
+  | EditModeActionType
+  | ChangeCartItemDetailsActionType
+  | PromocodeActionType;
 
 declare type CartBill = {
   subTotal: number;

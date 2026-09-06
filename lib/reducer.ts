@@ -23,7 +23,15 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
       if (!itemsAfterIncrement.success) {
         return state;
       }
-      return { ...state, items: itemsAfterIncrement.items };
+      const billAfterIncrement = calculateBills(
+        itemsAfterIncrement.items,
+        state.promocode.appliedPromocodes,
+      );
+      return {
+        ...state,
+        items: itemsAfterIncrement.items,
+        pricing: billAfterIncrement,
+      };
     case CART_ACTION_TYPES.ITEM_DECREMENT_QUANTITY:
       const itemsAfterDecrement = updateCartItemsById(
         action.payload.id,
@@ -33,7 +41,15 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
       if (!itemsAfterDecrement.success) {
         return state;
       }
-      return { ...state, items: itemsAfterDecrement.items };
+      const billAfterDecrement = calculateBills(
+        itemsAfterDecrement.items,
+        state.promocode.appliedPromocodes,
+      );
+      return {
+        ...state,
+        items: itemsAfterDecrement.items,
+        pricing: billAfterDecrement,
+      };
     case CART_ACTION_TYPES.ITEM_DELETE_ITEM:
       const itemsAfterDelete = updateCartItemsById(
         action.payload.id,
@@ -43,7 +59,20 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
       if (!itemsAfterDelete.success) {
         return state;
       }
-      return { ...state, items: itemsAfterDelete.items };
+      const billAfterDelete = calculateBills(
+        itemsAfterDelete.items,
+        state.promocode.appliedPromocodes,
+      );
+      return {
+        ...state,
+        items: itemsAfterDelete.items,
+        pricing: billAfterDelete,
+        promocode: {
+          appliedPromocodes: !itemsAfterDelete.items.length
+            ? []
+            : state.promocode.appliedPromocodes,
+        },
+      };
     case CART_ACTION_TYPES.PROMOCODE_APPLY_PROMOCODE:
       const prmCode = action.payload;
       if (
