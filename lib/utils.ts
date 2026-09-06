@@ -126,18 +126,18 @@ export function calculateBills(
 ) {
   const bill = items.reduce<CartBill>(
     (acc, item) => {
-      acc.subTotal += item.price.originalPrice;
+      acc.subTotal += item.price.originalPrice * item.quantity;
 
       if (item.price.discountedPrice) {
-        acc.total += item.price.discountedPrice;
+        acc.total += item.price.discountedPrice * item.quantity;
         const difference =
           item.price.originalPrice - item.price.discountedPrice;
-        acc.discounts += difference;
-        acc.totalDiscounts += difference;
+        acc.discounts += difference * item.quantity;
+        acc.totalDiscounts += difference * item.quantity;
         return acc;
       }
 
-      acc.total += item.price.originalPrice;
+      acc.total += item.price.originalPrice * item.quantity;
       return acc;
     },
     {
