@@ -1,3 +1,5 @@
+import { calculateBills } from "@/lib/utils";
+
 export enum NAV_LINKS {
   HOME = "/",
   CATALOGUE = "/catalogue",
@@ -374,3 +376,138 @@ export const defaultPageDetails = {
   hasNext: true,
   totalPages: 4,
 };
+
+export enum PROMOCODES {
+  MINUS_30 = "MINUS30",
+  MINUS_20 = "MINUS20",
+  MINUS_10 = "MINUS10",
+  MINUS_15 = "MINUS15",
+}
+
+export const PROMOCODES_MAP = {
+  [PROMOCODES.MINUS_20]: {
+    name: PROMOCODES.MINUS_20,
+    discount: 0.2,
+  },
+  [PROMOCODES.MINUS_10]: {
+    name: PROMOCODES.MINUS_10,
+    discount: 0.1,
+  },
+  [PROMOCODES.MINUS_15]: {
+    name: PROMOCODES.MINUS_15,
+    discount: 0.15,
+  },
+  [PROMOCODES.MINUS_30]: {
+    name: PROMOCODES.MINUS_30,
+    discount: 0.3,
+  },
+};
+
+export const defaultPromocode: PromocodeInfo = {
+  name: PROMOCODES.MINUS_20,
+  isPromocodeOpen: false,
+};
+
+const cartItems: CartItem[] = [
+  {
+    id: "1",
+    name: "Classic Tote Bag",
+    quantity: 2,
+    image: "/product.png",
+    color: "Red",
+    size: "L",
+    price: {
+      originalPrice: 100,
+      discountedPrice: 90,
+    },
+  },
+  {
+    id: "2",
+    name: "Classic T-shirt",
+    quantity: 3,
+    image: "/product.png",
+    color: "Green",
+    size: "M",
+    price: {
+      originalPrice: 50,
+    },
+  },
+  {
+    id: "3",
+    name: "Armani Leather Jacket",
+    quantity: 2,
+    image: "/product.png",
+    color: "Green",
+    size: "M",
+    price: {
+      originalPrice: 150,
+      discountedPrice: 120,
+    },
+  },
+];
+
+export enum DELIVERY_TYPES {
+  FREE = "Free",
+  FAST = "Fast",
+}
+
+export enum CART_BILL_EXTRA_FEES {
+  DELIVERY = "delivery",
+}
+
+export const DELIVERY_MAP = {
+  [DELIVERY_TYPES.FREE]: {
+    name: DELIVERY_TYPES.FREE,
+    cost: 0,
+  },
+  [DELIVERY_TYPES.FAST]: {
+    name: DELIVERY_TYPES.FAST,
+    cost: 20,
+  },
+};
+
+const bill: CartBill = calculateBills(
+  cartItems,
+  [],
+  [
+    {
+      name: CART_BILL_EXTRA_FEES.DELIVERY,
+      cost: DELIVERY_MAP[DELIVERY_TYPES.FAST].cost,
+      type: DELIVERY_TYPES.FAST,
+    },
+  ],
+);
+
+export const defaultCart: Cart = {
+  isEditOn: false,
+  items: cartItems,
+  promocode: {
+    appliedPromocodes: [],
+  },
+  pricing: {
+    subTotal: bill.subTotal,
+    extraFees: { delivery: bill.extraFees.delivery },
+    productPrice: bill.productPrice,
+    discounts: bill.discounts,
+    discountsPercentage: bill.discountsPercentage,
+    totalDiscounts: bill.totalDiscounts,
+    totalDiscountPercentage: bill.totalDiscountPercentage,
+    total: bill.total,
+    appliedPromocodeDiscount: {
+      percentage: bill.appliedPromocodeDiscount.percentage,
+      value: bill.appliedPromocodeDiscount.value,
+    },
+  },
+  editSnapshot: null,
+};
+
+export enum CART_ACTION_TYPES {
+  EDIT_ENABLE_EDIT_MODE = "enable edit mode",
+  EDIT_SAVE_CHANGES = "save changes",
+  EDIT_UNDO_CHANGES = "undo changes",
+  ITEM_INCREMENT_QUANTITY = "increment quantity",
+  ITEM_DECREMENT_QUANTITY = "decrement quantity",
+  ITEM_DELETE_ITEM = "delete item",
+  PROMOCODE_APPLY_PROMOCODE = "apply promocode",
+  PROMOCODE_DISCARD_PROMOCODES = "discard promocodes",
+}

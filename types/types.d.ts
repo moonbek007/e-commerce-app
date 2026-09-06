@@ -73,3 +73,99 @@ declare type PaginationProps = {
     hasNext: boolean;
   };
 };
+
+declare type CartItem = {
+  id: string;
+  name: string;
+  quantity: number;
+  image: string;
+  price: {
+    originalPrice: number;
+    discountedPrice?: number;
+  };
+  color: string;
+  size: string;
+};
+
+declare type Promocode = {
+  name: import("@/constants/constants").PROMOCODES;
+  discount: number;
+};
+
+declare type PromocodeInfo = {
+  name: import("@/constants/constants").PROMOCODES;
+  isPromocodeOpen: boolean;
+};
+
+declare type Cart = {
+  isEditOn: boolean;
+  items: CartItem[];
+  promocode: {
+    appliedPromocodes: Promocode[];
+  };
+  pricing: CartBill;
+  editSnapshot: {
+    items: CartItem[];
+    bill: CartBill;
+    promocode: {
+      appliedPromocodes: Promocode[];
+    };
+  } | null;
+};
+
+declare type EditModeActionType = {
+  type:
+    | import("@/constants/constants").CART_ACTION_TYPES.EDIT_ENABLE_EDIT_MODE
+    | import("@/constants/constants").CART_ACTION_TYPES.EDIT_SAVE_CHANGES
+    | import("@/constants/constants").CART_ACTION_TYPES.EDIT_UNDO_CHANGES;
+};
+
+declare type ChangeCartItemDetailsActionType = {
+  type:
+    | import("@/constants/constants").CART_ACTION_TYPES.ITEM_INCREMENT_QUANTITY
+    | import("@/constants/constants").CART_ACTION_TYPES.ITEM_DECREMENT_QUANTITY
+    | import("@/constants/constants").CART_ACTION_TYPES.ITEM_DELETE_ITEM;
+  payload: { id: string };
+};
+
+declare type PromocodeActionType =
+  | {
+      type: import("@/constants/constants").CART_ACTION_TYPES.PROMOCODE_APPLY_PROMOCODE;
+      payload: Promocode;
+    }
+  | {
+      type: import("@/constants/constants").CART_ACTION_TYPES.PROMOCODE_DISCARD_PROMOCODES;
+    };
+
+declare type CartReducerAction =
+  | EditModeActionType
+  | ChangeCartItemDetailsActionType
+  | PromocodeActionType;
+
+declare type CartBill = {
+  subTotal: number;
+  total: number;
+  extraFees: CartBillExtraFees;
+  productPrice: number;
+  discounts: number;
+  discountsPercentage: number;
+  totalDiscounts: number;
+  totalDiscountPercentage: number;
+  appliedPromocodeDiscount: {
+    percentage: number;
+    value: number;
+  };
+};
+
+declare type ExtraFee = {
+  name: import("@/constants/constants").CART_BILL_EXTRA_FEES;
+  cost: number;
+  type?: import("@/constants/constants").DELIVERY_TYPES;
+};
+
+declare type CartBillExtraFees = {
+  delivery: {
+    type: import("@/constants/constants").DELIVERY_TYPES;
+    cost: number;
+  };
+};
