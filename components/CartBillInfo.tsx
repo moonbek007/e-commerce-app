@@ -20,6 +20,14 @@ const CartBillInfo = () => {
             </span>
           </div>
         )}
+        {!!pricing.productPrice && (
+          <div className="flex justify-between">
+            <span>Product Price</span>
+            <span className="text-gray-900">
+              ${pricing.productPrice.toFixed(2)}
+            </span>
+          </div>
+        )}
         {!!pricing.discounts && (
           <div className="flex justify-between">
             <div>

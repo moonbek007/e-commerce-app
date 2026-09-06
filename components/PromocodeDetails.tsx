@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ListXIcon, PlusIcon, TagIcon, XIcon } from "lucide-react";
+import clsx from "clsx";
 
 import { useCartContext } from "@/hooks/useCartContext";
 import { useCartDispatch } from "@/hooks/useCartDispatch";
@@ -76,7 +77,12 @@ const PromocodeDetails = () => {
           <button
             disabled={!items.length || !!promocode.appliedPromocodes.length}
             onClick={handleTogglePromocode}
-            className="flex items-center py-1 gap-1.5 text-sm underline text-gray-700 hover:text-black disabled:opacity-30 cursor-pointer"
+            className={clsx(
+              "flex items-center py-1 gap-1.5 text-sm text-gray-700 disabled:opacity-30 cursor-pointer",
+              {
+                "hover:text-black": !!items.length,
+              },
+            )}
           >
             <TagIcon className="w-3.5 h-3.5" />
             Enter a promo code

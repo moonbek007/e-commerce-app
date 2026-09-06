@@ -1,4 +1,5 @@
 import { CheckIcon, PencilIcon, Redo2Icon } from "lucide-react";
+import clsx from "clsx";
 
 import { useCartContext } from "@/hooks/useCartContext";
 import { useCartDispatch } from "@/hooks/useCartDispatch";
@@ -6,7 +7,7 @@ import { useCartDispatch } from "@/hooks/useCartDispatch";
 import { CART_ACTION_TYPES } from "@/constants/constants";
 
 const EditButtons = () => {
-  const { isEditOn } = useCartContext()!;
+  const { isEditOn, items } = useCartContext()!;
   const dispatch = useCartDispatch()!;
 
   const handleEnableEditMode = () => {
@@ -31,8 +32,14 @@ const EditButtons = () => {
     <div className="flex gap-2">
       {!isEditOn ? (
         <button
+          disabled={!items.length}
           onClick={handleEnableEditMode}
-          className="flex gap-1 items-center text-xs underline text-gray-600 hover:text-black cursor-pointer p-1.5"
+          className={clsx(
+            "flex gap-1 items-center text-xs text-gray-600 disabled:opacity-30 cursor-pointer p-1.5",
+            {
+              "hover:text-black": !!items.length,
+            },
+          )}
         >
           <span>
             <PencilIcon className="w-3.5 h-3.5" />

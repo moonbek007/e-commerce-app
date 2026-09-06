@@ -146,6 +146,7 @@ declare type CartBill = {
   subTotal: number;
   total: number;
   extraFees: CartBillExtraFees;
+  productPrice: number;
   discounts: number;
   discountsPercentage: number;
   totalDiscounts: number;

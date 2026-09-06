@@ -130,6 +130,7 @@ export function calculateBills(
       acc.subTotal += item.price.originalPrice * item.quantity;
 
       if (item.price.discountedPrice) {
+        acc.productPrice += item.price.originalPrice * item.quantity;
         acc.total += item.price.discountedPrice * item.quantity;
         const difference =
           item.price.originalPrice - item.price.discountedPrice;
@@ -138,6 +139,7 @@ export function calculateBills(
         return acc;
       }
 
+      acc.productPrice += item.price.originalPrice * item.quantity;
       acc.total += item.price.originalPrice * item.quantity;
       return acc;
     },
@@ -147,6 +149,7 @@ export function calculateBills(
       extraFees: {
         delivery: { type: DELIVERY_TYPES.FREE, cost: 0 },
       },
+      productPrice: 0,
       discounts: 0,
       discountsPercentage: 0,
       totalDiscounts: 0,
