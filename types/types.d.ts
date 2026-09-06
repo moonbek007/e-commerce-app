@@ -104,6 +104,13 @@ declare type Cart = {
     appliedPromocodes: Promocode[];
   };
   pricing: CartBill;
+  editSnapshot: {
+    items: CartItem[];
+    bill: CartBill;
+    promocode: {
+      appliedPromocodes: Promocode[];
+    };
+  } | null;
 };
 
 declare type EditModeActionType = {

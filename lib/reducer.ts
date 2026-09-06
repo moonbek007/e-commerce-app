@@ -10,11 +10,28 @@ import { CART_ACTION_TYPES } from "@/constants/constants";
 export function cartReducer(state: Cart, action: CartReducerAction): Cart {
   switch (action.type) {
     case CART_ACTION_TYPES.EDIT_ENABLE_EDIT_MODE:
-      return { ...state, isEditOn: true };
-    case CART_ACTION_TYPES.EDIT_UNDO_CHANGES: // TODO
-      return { ...state, isEditOn: false };
-    case CART_ACTION_TYPES.EDIT_SAVE_CHANGES: // TODO
-      return { ...state, isEditOn: false };
+      return {
+        ...state,
+        isEditOn: true,
+        editSnapshot: {
+          bill: state.pricing,
+          items: [...state.items],
+          promocode: state.promocode,
+        },
+      };
+    case CART_ACTION_TYPES.EDIT_UNDO_CHANGES:
+      if (state.editSnapshot) {
+        return {
+          ...state,
+          isEditOn: false,
+          items: [...state.editSnapshot.items],
+          pricing: { ...state.editSnapshot.bill },
+          promocode: { ...state.editSnapshot.promocode },
+          editSnapshot: null,
+        };
+      }
+    case CART_ACTION_TYPES.EDIT_SAVE_CHANGES:
+      return { ...state, isEditOn: false, editSnapshot: null };
     case CART_ACTION_TYPES.ITEM_INCREMENT_QUANTITY:
       const itemsAfterIncrement = updateCartItemsById(
         action.payload.id,

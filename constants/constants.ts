@@ -487,6 +487,7 @@ export const defaultCart: Cart = {
   pricing: {
     subTotal: bill.subTotal,
     extraFees: { delivery: bill.extraFees.delivery },
+    productPrice: bill.productPrice,
     discounts: bill.discounts,
     discountsPercentage: bill.discountsPercentage,
     totalDiscounts: bill.totalDiscounts,
@@ -497,6 +498,7 @@ export const defaultCart: Cart = {
       value: bill.appliedPromocodeDiscount.value,
     },
   },
+  editSnapshot: null,
 };
 
 export enum CART_ACTION_TYPES {
