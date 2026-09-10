@@ -170,16 +170,27 @@ declare type CartBillExtraFees = {
   };
 };
 
+declare type CartUserInfo = {
+  customerDetails: CustomerDetails;
+  deliveryDetails: DeliveryDetails;
+};
+
 declare type SaveCustomerDetailsAction = {
-  type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES;
+  type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES.CUSTOMER_DETAILS_SAVE_DETAILS;
   payload: CustomerDetails;
 };
 
-declare type CartUserInfo = {
-  customerDetails: CustomerDetails;
+declare type SaveDeliveryDetailsAction = {
+  type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES.DELIVERY_DETAILS_SAVE_DETAILS;
+  payload: {
+    deliveryType: import("@/constants/constants").DELIVERY_TYPES;
+    deliveryCost: number;
+  };
 };
 
-declare type CartUserInfoReducerAction = SaveCustomerDetailsAction;
+declare type CartUserInfoReducerAction =
+  | SaveCustomerDetailsAction
+  | SaveDeliveryDetailsAction;
 
 declare type CustomerDetails = Record<
   import("@/constants/constants").CUSTOMER_DETAILS_FIELDS,
@@ -194,4 +205,9 @@ declare type CustomerDetailsFormDataRow = {
     inputType: string;
     isRequired: boolean;
   }[];
+};
+
+declare type DeliveryDetails = {
+  type: import("@/constants/constants").DELIVERY_TYPES;
+  cost: number;
 };

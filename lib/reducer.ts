@@ -141,6 +141,14 @@ export function cartUserInfoRecuder(
   switch (action.type) {
     case CART_USER_INFO_ACTION_TYPES.CUSTOMER_DETAILS_SAVE_DETAILS:
       return { ...state, customerDetails: action.payload };
+    case CART_USER_INFO_ACTION_TYPES.DELIVERY_DETAILS_SAVE_DETAILS:
+      return {
+        ...state,
+        deliveryDetails: {
+          type: action.payload.deliveryType,
+          cost: action.payload.deliveryCost,
+        },
+      };
     default:
       return state;
   }

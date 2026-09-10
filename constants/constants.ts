@@ -447,8 +447,9 @@ const cartItems: CartItem[] = [
 ];
 
 export enum DELIVERY_TYPES {
-  FREE = "Free",
-  FAST = "Fast",
+  FREE = "Standard (1 week)",
+  FAST = "Quick (3 days)",
+  TURBO = "Turbo (1 day)",
 }
 
 export enum CART_BILL_EXTRA_FEES {
@@ -462,6 +463,10 @@ export const DELIVERY_MAP = {
   },
   [DELIVERY_TYPES.FAST]: {
     name: DELIVERY_TYPES.FAST,
+    cost: 10,
+  },
+  [DELIVERY_TYPES.TURBO]: {
+    name: DELIVERY_TYPES.TURBO,
     cost: 20,
   },
 };
@@ -529,6 +534,7 @@ export enum CUSTOMER_DETAILS_FIELDS {
 
 export enum CART_USER_INFO_ACTION_TYPES {
   CUSTOMER_DETAILS_SAVE_DETAILS = "save customer details",
+  DELIVERY_DETAILS_SAVE_DETAILS = "save delivery details",
 }
 
 export const defaultCartUserInfo: CartUserInfo = {
@@ -541,6 +547,10 @@ export const defaultCartUserInfo: CartUserInfo = {
     address: "",
     city: "",
     postCode: "",
+  },
+  deliveryDetails: {
+    type: DELIVERY_MAP[DELIVERY_TYPES.FREE].name,
+    cost: DELIVERY_MAP[DELIVERY_TYPES.FREE].cost,
   },
 };
 
