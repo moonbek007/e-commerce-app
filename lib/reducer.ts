@@ -5,7 +5,10 @@ import {
   updateCartItemsById,
 } from "@/lib/utils";
 
-import { CART_ACTION_TYPES } from "@/constants/constants";
+import {
+  CART_ACTION_TYPES,
+  CART_USER_INFO_ACTION_TYPES,
+} from "@/constants/constants";
 
 export function cartReducer(state: Cart, action: CartReducerAction): Cart {
   switch (action.type) {
@@ -135,5 +138,10 @@ export function cartUserInfoRecuder(
   state: CartUserInfo,
   action: CartUserInfoReducerAction,
 ): CartUserInfo {
-  return state;
+  switch (action.type) {
+    case CART_USER_INFO_ACTION_TYPES.CUSTOMER_DETAILS_SAVE_DETAILS:
+      return { ...state, customerDetails: action.payload };
+    default:
+      return state;
+  }
 }

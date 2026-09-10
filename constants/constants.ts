@@ -512,4 +512,115 @@ export enum CART_ACTION_TYPES {
   PROMOCODE_DISCARD_PROMOCODES = "discard promocodes",
 }
 
-export const defaultCartUserInfo: CartUserInfo = null;
+export enum CART_USER_INFO_SECTIONS {
+  CUSTOMER_DETAILS = "customerDetails",
+}
+
+export enum CUSTOMER_DETAILS_FIELDS {
+  FIRST_NAME = "firstName",
+  LAST_NAME = "lastName",
+  EMAIL = "email",
+  PHONE_NUMBER = "phoneNumber",
+  COUNTRY_OR_REGION = "countryOrRegion",
+  ADDRESS = "address",
+  CITY = "city",
+  POST_CODE = "postCode",
+}
+
+export enum CART_USER_INFO_ACTION_TYPES {
+  CUSTOMER_DETAILS_SAVE_DETAILS = "save customer details",
+}
+
+export const defaultCartUserInfo: CartUserInfo = {
+  customerDetails: {
+    email: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    countryOrRegion: "",
+    address: "",
+    city: "",
+    postCode: "",
+  },
+};
+
+export const customerDetailsFormDataRows: CustomerDetailsFormDataRow[] = [
+  {
+    multipleItems: false,
+    items: [
+      {
+        title: "First Name",
+        label: CUSTOMER_DETAILS_FIELDS.FIRST_NAME,
+        inputType: "text",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    multipleItems: false,
+    items: [
+      {
+        title: "Last Name",
+        label: CUSTOMER_DETAILS_FIELDS.LAST_NAME,
+        inputType: "text",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    multipleItems: false,
+    items: [
+      {
+        title: "Email",
+        label: CUSTOMER_DETAILS_FIELDS.EMAIL,
+        inputType: "email",
+        isRequired: false,
+      },
+    ],
+  },
+  {
+    multipleItems: true,
+    items: [
+      {
+        title: "Phone Number",
+        label: CUSTOMER_DETAILS_FIELDS.PHONE_NUMBER,
+        inputType: "tel",
+        isRequired: false,
+      },
+      {
+        title: "Country/Region",
+        label: CUSTOMER_DETAILS_FIELDS.COUNTRY_OR_REGION,
+        inputType: "text",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    multipleItems: false,
+    items: [
+      {
+        title: "Address",
+        label: CUSTOMER_DETAILS_FIELDS.ADDRESS,
+        inputType: "text",
+        isRequired: true,
+      },
+    ],
+  },
+  {
+    multipleItems: true,
+    items: [
+      {
+        title: "City",
+        label: CUSTOMER_DETAILS_FIELDS.CITY,
+        inputType: "text",
+        isRequired: true,
+      },
+      {
+        title: "Zip/Postal Code",
+        label: CUSTOMER_DETAILS_FIELDS.POST_CODE,
+        inputType: "text",
+        isRequired: true,
+      },
+    ],
+  },
+];

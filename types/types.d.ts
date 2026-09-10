@@ -170,6 +170,28 @@ declare type CartBillExtraFees = {
   };
 };
 
-declare type CartUserInfo = null;
+declare type SaveCustomerDetailsAction = {
+  type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES;
+  payload: CustomerDetails;
+};
 
-declare type CartUserInfoReducerAction = null;
+declare type CartUserInfo = {
+  customerDetails: CustomerDetails;
+};
+
+declare type CartUserInfoReducerAction = SaveCustomerDetailsAction;
+
+declare type CustomerDetails = Record<
+  import("@/constants/constants").CUSTOMER_DETAILS_FIELDS,
+  string
+>;
+
+declare type CustomerDetailsFormDataRow = {
+  multipleItems: boolean;
+  items: {
+    title: string;
+    label: import("@/constants/constants").CUSTOMER_DETAILS_FIELDS;
+    inputType: string;
+    isRequired: boolean;
+  }[];
+};
