@@ -130,3 +130,10 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
   }
   return state;
 }
+
+export function cartUserInfoRecuder(
+  state: CartUserInfo,
+  action: CartUserInfoReducerAction,
+): CartUserInfo {
+  return state;
+}

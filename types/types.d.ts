@@ -169,3 +169,7 @@ declare type CartBillExtraFees = {
     cost: number;
   };
 };
+
+declare type CartUserInfo = null;
+
+declare type CartUserInfoReducerAction = null;

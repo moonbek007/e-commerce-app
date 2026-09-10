@@ -511,3 +511,5 @@ export enum CART_ACTION_TYPES {
   PROMOCODE_APPLY_PROMOCODE = "apply promocode",
   PROMOCODE_DISCARD_PROMOCODES = "discard promocodes",
 }
+
+export const defaultCartUserInfo: CartUserInfo = null;
