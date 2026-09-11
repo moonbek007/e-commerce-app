@@ -552,6 +552,12 @@ export const defaultCartUserInfo: CartUserInfo = {
     type: DELIVERY_MAP[DELIVERY_TYPES.FREE].name,
     cost: DELIVERY_MAP[DELIVERY_TYPES.FREE].cost,
   },
+  paymentDetails: {
+    cardNumber: "",
+    expirationDate: "",
+    securityCode: "",
+    cardHolderName: "",
+  },
 };
 
 export const customerDetailsFormDataRows: CustomerDetailsFormDataRow[] = [

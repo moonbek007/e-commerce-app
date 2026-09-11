@@ -173,6 +173,7 @@ declare type CartBillExtraFees = {
 declare type CartUserInfo = {
   customerDetails: CustomerDetails;
   deliveryDetails: DeliveryDetails;
+  paymentDetails: PaymentDetails;
 };
 
 declare type SaveCustomerDetailsAction = {
@@ -210,4 +211,11 @@ declare type CustomerDetailsFormDataRow = {
 declare type DeliveryDetails = {
   type: import("@/constants/constants").DELIVERY_TYPES;
   cost: number;
+};
+
+declare type PaymentDetails = {
+  cardNumber: string;
+  expirationDate: string;
+  securityCode: string;
+  cardHolderName: string;
 };
