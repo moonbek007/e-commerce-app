@@ -180,25 +180,40 @@ declare type CartBillExtraFees = {
 };
 
 declare type CartUserInfo = {
+  activeSection: import("@/constants/constants").CART_USER_INFO_SECTIONS;
   customerDetails: CustomerDetails;
   deliveryDetails: DeliveryDetails;
   paymentDetails: PaymentDetails;
 };
 
+declare type ChangeCartUserInfoActiveSection = {
+  type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES.SECTIONS_CHANGE_SECTION;
+  payload: {
+    newSection: import("@/constants/constants").CART_USER_INFO_SECTIONS;
+  };
+};
+
 declare type SaveCustomerDetailsAction = {
   type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES.CUSTOMER_DETAILS_SAVE_DETAILS;
-  payload: CustomerDetails;
+  payload: {
+    customerDetails: CustomerDetails;
+    newSection: import("@/constants/constants").CART_USER_INFO_SECTIONS.DELIVERY_DETAILS;
+  };
 };
 
 declare type SaveDeliveryDetailsAction = {
   type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES.DELIVERY_DETAILS_SAVE_DETAILS;
   payload: {
-    deliveryType: import("@/constants/constants").DELIVERY_TYPES;
-    deliveryCost: number;
+    deliveryDetails: {
+      deliveryType: import("@/constants/constants").DELIVERY_TYPES;
+      deliveryCost: number;
+    };
+    newSection: import("@/constants/constants").CART_USER_INFO_SECTIONS.PAYMENT_DETAILS;
   };
 };
 
 declare type CartUserInfoReducerAction =
+  | ChangeCartUserInfoActiveSection
   | SaveCustomerDetailsAction
   | SaveDeliveryDetailsAction;
 

@@ -4,7 +4,7 @@ import CartWrapper from "@/components/CartWrapper";
 
 const CartPage = async () => {
   return (
-    <main className="flex flex-1 justify-center items-center gap-12 py-12 bg-white text-gray-800 font-sans antialiased">
+    <main className="flex flex-1 justify-center gap-12 py-12 bg-white text-gray-800 font-sans antialiased">
       <CartWrapper>
         <CartUserInfo />
         <CartOrders />

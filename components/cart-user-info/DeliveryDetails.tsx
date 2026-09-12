@@ -7,6 +7,7 @@ import { useCartDispatch } from "@/hooks/useCartDispatch";
 import {
   CART_ACTION_TYPES,
   CART_USER_INFO_ACTION_TYPES,
+  CART_USER_INFO_SECTIONS,
   DELIVERY_MAP,
   DELIVERY_TYPES,
 } from "@/constants/constants";
@@ -37,8 +38,11 @@ const DeliveryDetails = () => {
     cartUserInfoDispatch({
       type: CART_USER_INFO_ACTION_TYPES.DELIVERY_DETAILS_SAVE_DETAILS,
       payload: {
-        deliveryType: checkedDeliveryType,
-        deliveryCost: DELIVERY_MAP[checkedDeliveryType].cost,
+        deliveryDetails: {
+          deliveryType: checkedDeliveryType,
+          deliveryCost: DELIVERY_MAP[checkedDeliveryType].cost,
+        },
+        newSection: CART_USER_INFO_SECTIONS.PAYMENT_DETAILS,
       },
     });
   };

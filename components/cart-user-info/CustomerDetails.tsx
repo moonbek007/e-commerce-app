@@ -6,6 +6,7 @@ import { useCartUserInfoDispatch } from "@/hooks/useCartUserInfoDispatch";
 
 import {
   CART_USER_INFO_ACTION_TYPES,
+  CART_USER_INFO_SECTIONS,
   CUSTOMER_DETAILS_FIELDS,
   customerDetailsFormDataRows,
 } from "@/constants/constants";
@@ -25,7 +26,12 @@ const CustomerDetails = () => {
     e.preventDefault();
     dispatch({
       type: CART_USER_INFO_ACTION_TYPES.CUSTOMER_DETAILS_SAVE_DETAILS,
-      payload: { ...formData },
+      payload: {
+        customerDetails: {
+          ...formData,
+        },
+        newSection: CART_USER_INFO_SECTIONS.DELIVERY_DETAILS,
+      },
     });
   };
 

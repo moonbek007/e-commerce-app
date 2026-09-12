@@ -155,15 +155,22 @@ export function cartUserInfoRecuder(
   action: CartUserInfoReducerAction,
 ): CartUserInfo {
   switch (action.type) {
+    case CART_USER_INFO_ACTION_TYPES.SECTIONS_CHANGE_SECTION:
+      return { ...state, activeSection: action.payload.newSection };
     case CART_USER_INFO_ACTION_TYPES.CUSTOMER_DETAILS_SAVE_DETAILS:
-      return { ...state, customerDetails: action.payload };
+      return {
+        ...state,
+        customerDetails: action.payload.customerDetails,
+        activeSection: action.payload.newSection,
+      };
     case CART_USER_INFO_ACTION_TYPES.DELIVERY_DETAILS_SAVE_DETAILS:
       return {
         ...state,
         deliveryDetails: {
-          type: action.payload.deliveryType,
-          cost: action.payload.deliveryCost,
+          type: action.payload.deliveryDetails.deliveryType,
+          cost: action.payload.deliveryDetails.deliveryCost,
         },
+        activeSection: action.payload.newSection,
       };
     default:
       return state;
