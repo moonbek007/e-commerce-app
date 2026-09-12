@@ -128,6 +128,22 @@ export function cartReducer(state: Cart, action: CartReducerAction): Cart {
         promocode: { appliedPromocodes: [] },
         pricing: { ...billWithoutPromocdes },
       };
+    case CART_ACTION_TYPES.DELIVERY_PICK_DELIVERY_TYPE:
+      const billWithDeliveryApplied = calculateBills(
+        state.items,
+        state.promocode.appliedPromocodes,
+        getExtraFees({
+          ...state.pricing.extraFees,
+          delivery: {
+            type: action.payload.deliveryType,
+            cost: action.payload.deliveryCost,
+          },
+        }),
+      );
+      return {
+        ...state,
+        pricing: billWithDeliveryApplied,
+      };
     default:
       break;
   }

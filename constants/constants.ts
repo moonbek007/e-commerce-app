@@ -477,8 +477,8 @@ const bill: CartBill = calculateBills(
   [
     {
       name: CART_BILL_EXTRA_FEES.DELIVERY,
-      cost: DELIVERY_MAP[DELIVERY_TYPES.FAST].cost,
-      type: DELIVERY_TYPES.FAST,
+      cost: DELIVERY_MAP[DELIVERY_TYPES.FREE].cost,
+      type: DELIVERY_TYPES.FREE,
     },
   ],
 );
@@ -515,6 +515,7 @@ export enum CART_ACTION_TYPES {
   ITEM_DELETE_ITEM = "delete item",
   PROMOCODE_APPLY_PROMOCODE = "apply promocode",
   PROMOCODE_DISCARD_PROMOCODES = "discard promocodes",
+  DELIVERY_PICK_DELIVERY_TYPE = "pick delivery type",
 }
 
 export enum CART_USER_INFO_SECTIONS {

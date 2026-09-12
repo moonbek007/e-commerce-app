@@ -128,6 +128,14 @@ declare type ChangeCartItemDetailsActionType = {
   payload: { id: string };
 };
 
+declare type PickDeliveryTypeActionType = {
+  type: import("@/constants/constants").CART_ACTION_TYPES.DELIVERY_PICK_DELIVERY_TYPE;
+  payload: {
+    deliveryType: import("@/constants/constants").DELIVERY_TYPES;
+    deliveryCost: number;
+  };
+};
+
 declare type PromocodeActionType =
   | {
       type: import("@/constants/constants").CART_ACTION_TYPES.PROMOCODE_APPLY_PROMOCODE;
@@ -140,7 +148,8 @@ declare type PromocodeActionType =
 declare type CartReducerAction =
   | EditModeActionType
   | ChangeCartItemDetailsActionType
-  | PromocodeActionType;
+  | PromocodeActionType
+  | PickDeliveryTypeActionType;
 
 declare type CartBill = {
   subTotal: number;

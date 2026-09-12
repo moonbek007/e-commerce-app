@@ -2,8 +2,10 @@ import { useState } from "react";
 
 import { useCartUserInfoContext } from "@/hooks/useCartUserInfoContext";
 import { useCartUserInfoDispatch } from "@/hooks/useCartUserInfoDispatch";
+import { useCartDispatch } from "@/hooks/useCartDispatch";
 
 import {
+  CART_ACTION_TYPES,
   CART_USER_INFO_ACTION_TYPES,
   DELIVERY_MAP,
   DELIVERY_TYPES,
@@ -11,7 +13,8 @@ import {
 
 const DeliveryDetails = () => {
   const { deliveryDetails } = useCartUserInfoContext();
-  const dispatch = useCartUserInfoDispatch()!;
+  const cartUserInfoDispatch = useCartUserInfoDispatch()!;
+  const cartDispatch = useCartDispatch()!;
 
   const [checkedDeliveryType, setCheckedDeliveryType] = useState(
     deliveryDetails.type,
@@ -21,10 +24,17 @@ const DeliveryDetails = () => {
 
   const handleChangeDeliveryType = (newDeliveryType: DELIVERY_TYPES) => {
     setCheckedDeliveryType(newDeliveryType);
+    cartDispatch({
+      type: CART_ACTION_TYPES.DELIVERY_PICK_DELIVERY_TYPE,
+      payload: {
+        deliveryType: newDeliveryType,
+        deliveryCost: DELIVERY_MAP[newDeliveryType].cost,
+      },
+    });
   };
 
   const handleClickContinue = () => {
-    dispatch({
+    cartUserInfoDispatch({
       type: CART_USER_INFO_ACTION_TYPES.DELIVERY_DETAILS_SAVE_DETAILS,
       payload: {
         deliveryType: checkedDeliveryType,
