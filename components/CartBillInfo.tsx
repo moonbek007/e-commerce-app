@@ -14,7 +14,7 @@ const CartBillInfo = () => {
           <div className="flex justify-between">
             <span>Delivery</span>
             <span className="text-gray-900">
-              {!pricing.extraFees.delivery
+              {!pricing.extraFees.delivery.cost
                 ? "Free"
                 : `$${pricing.extraFees.delivery.cost.toFixed(2)}`}
             </span>
