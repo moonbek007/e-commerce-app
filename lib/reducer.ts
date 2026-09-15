@@ -172,6 +172,12 @@ export function cartUserInfoRecuder(
         },
         activeSection: action.payload.newSection,
       };
+    case CART_USER_INFO_ACTION_TYPES.PAYMENT_DETAILS_SAVE_DETAILS:
+      return {
+        ...state,
+        paymentDetails: action.payload.paymentDetails,
+        activeSection: action.payload.newSection,
+      };
     default:
       return state;
   }

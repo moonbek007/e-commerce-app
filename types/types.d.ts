@@ -212,10 +212,19 @@ declare type SaveDeliveryDetailsAction = {
   };
 };
 
+declare type SavePaymentDetailsAction = {
+  type: import("@/constants/constants").CART_USER_INFO_ACTION_TYPES.PAYMENT_DETAILS_SAVE_DETAILS;
+  payload: {
+    paymentDetails: PaymentDetails;
+    newSection: import("@/constants/constants").CART_USER_INFO_SECTIONS.TERMS_AND_CONDTIONS;
+  };
+};
+
 declare type CartUserInfoReducerAction =
   | ChangeCartUserInfoActiveSection
   | SaveCustomerDetailsAction
-  | SaveDeliveryDetailsAction;
+  | SaveDeliveryDetailsAction
+  | SavePaymentDetailsAction;
 
 declare type CustomerDetails = Record<
   import("@/constants/constants").CUSTOMER_DETAILS_FIELDS,

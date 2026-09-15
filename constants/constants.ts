@@ -522,6 +522,7 @@ export enum CART_USER_INFO_SECTIONS {
   CUSTOMER_DETAILS = "customer-details",
   DELIVERY_DETAILS = "delivery-details",
   PAYMENT_DETAILS = "payment-details",
+  TERMS_AND_CONDTIONS = "terms-and-conditions",
 }
 
 export enum CUSTOMER_DETAILS_FIELDS {
@@ -539,6 +540,7 @@ export enum CART_USER_INFO_ACTION_TYPES {
   SECTIONS_CHANGE_SECTION = "change current section",
   CUSTOMER_DETAILS_SAVE_DETAILS = "save customer details",
   DELIVERY_DETAILS_SAVE_DETAILS = "save delivery details",
+  PAYMENT_DETAILS_SAVE_DETAILS = "save payment details",
 }
 
 export const defaultCartUserInfo: CartUserInfo = {
